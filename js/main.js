@@ -18,7 +18,7 @@
         en: 'Digital menu, online ordering and delivery integration for a local pizzeria.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: 'https://www.dallepizza.com.br' // Adicione a URL do site demonstrativo aqui
+      demoUrl: '' // Adicione a URL do site demonstrativo aqui
     },
     barbearia: {
       category: { pt: 'Beleza', en: 'Beauty' },
