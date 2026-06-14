@@ -1,0 +1,13 @@
+# Pastas de sistema e editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code
+.claude/
+
+# Logs
+*.log
