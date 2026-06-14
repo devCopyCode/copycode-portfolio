@@ -18,7 +18,8 @@
         en: 'Digital menu, online ordering and delivery integration for a local pizzeria.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '' // Adicione a URL do site demonstrativo aqui
+      demoUrl: 'https://www.dallepizza.com.br',
+      imageUrl: ''
     },
     barbearia: {
       category: { pt: 'Beleza', en: 'Beauty' },
@@ -28,7 +29,8 @@
         en: 'Conversion page with booking, services and WhatsApp button.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '' // Adicione a URL do site demonstrativo aqui
+      demoUrl: '',
+      imageUrl: ''
     },
     designer: {
       category: { pt: 'Criativo', en: 'Creative' },
@@ -38,7 +40,8 @@
         en: 'Minimalist showcase to present work and attract new clients.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '' // Adicione a URL do site demonstrativo aqui
+      demoUrl: '',
+      imageUrl: ''
     },
     loja: {
       category: { pt: 'E-commerce', en: 'E-commerce' },
@@ -48,7 +51,8 @@
         en: 'Digital storefront with catalog, filters and direct sales contact.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '' // Adicione a URL do site demonstrativo aqui
+      demoUrl: '',
+      imageUrl: ''
     },
     advogado: {
       category: { pt: 'Jurídico', en: 'Legal' },
@@ -58,7 +62,8 @@
         en: 'Business website with practice areas, credibility and contact form.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '' // Adicione a URL do site demonstrativo aqui
+      demoUrl: '',
+      imageUrl: ''
     },
     marketing: {
       category: { pt: 'Marketing', en: 'Marketing' },
@@ -68,7 +73,8 @@
         en: 'Impactful digital presence with case studies, services and lead capture.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '' // Adicione a URL do site demonstrativo aqui
+      demoUrl: '',
+      imageUrl: ''
     }
   };
 
@@ -90,7 +96,7 @@
   const backToTopBtn = document.getElementById('backToTop');
   const footerYearEls = Array.from(document.querySelectorAll('#footerYear'));
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const lightSections = ['servicos', 'processo', 'faq']
+  const lightSections = ['servicos', 'processo', 'planos', 'faq']
     .map(function (id) {
       return document.getElementById(id);
     })
@@ -249,6 +255,61 @@
     if (modalClose) {
       modalClose.setAttribute('aria-label', isPt ? 'Fechar' : 'Close');
     }
+
+    const imgWrap = document.getElementById('modalImageWrap');
+    const imgEl = document.getElementById('modalImage');
+    if (imgWrap && imgEl) {
+      if (project.imageUrl) {
+        imgEl.src = project.imageUrl;
+        imgEl.alt = titleText;
+        imgWrap.removeAttribute('hidden');
+      } else {
+        imgWrap.setAttribute('hidden', '');
+        imgEl.src = '';
+        imgEl.alt = '';
+      }
+    }
+  }
+
+  function updateCardImageAlts() {
+    const lang = window.copyECodeI18n ? window.copyECodeI18n.getLang() : 'pt-BR';
+    const l = lang === 'pt-BR' ? 'pt' : 'en';
+    document.querySelectorAll('.portfolio-card__image[data-project-id]').forEach(function (img) {
+      const project = PROJECTS[img.dataset.projectId];
+      if (project) img.alt = project.title[l];
+    });
+  }
+
+  function initCardImages() {
+    const lang = window.copyECodeI18n ? window.copyECodeI18n.getLang() : 'pt-BR';
+    const l = lang === 'pt-BR' ? 'pt' : 'en';
+
+    document.querySelectorAll('.portfolio-card__btn[data-project]').forEach(function (btn) {
+      const projectId = btn.dataset.project;
+      const project = PROJECTS[projectId];
+      if (!project || !project.imageUrl) return;
+
+      const card = btn.closest('.portfolio-card');
+      if (!card) return;
+      const preview = card.querySelector('.portfolio-card__preview');
+      if (!preview) return;
+
+      const img = document.createElement('img');
+      img.className = 'portfolio-card__image';
+      img.dataset.projectId = projectId;
+      img.alt = project.title[l];
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.src = project.imageUrl;
+
+      img.addEventListener('error', function () {
+        img.remove();
+        preview.classList.remove('has-image');
+      });
+
+      preview.classList.add('has-image');
+      preview.insertBefore(img, preview.firstChild);
+    });
   }
 
   function openModal(projectId) {
@@ -469,6 +530,7 @@
         if (currentProjectId && conceptModal && conceptModal.classList.contains('active')) {
           renderModal(PROJECTS[currentProjectId]);
         }
+        updateCardImageAlts();
       });
     });
   }
@@ -556,6 +618,7 @@
   initLanguageSwitcher();
   initBackToTop();
   initFooterYear();
+  initCardImages();
   updateHeader();
   updateActiveNav();
 })();
