@@ -1,339 +1,676 @@
-# Guia Completo: Claude como Orquestrador de Automação de Leads
-
-## Visão Geral da Opção 2
-
-Nessa abordagem, você usa o **Claude como cérebro** do fluxo — ele analisa os dados, toma decisões e gera o conteúdo — enquanto o **Make ou N8N** cuida da execução mecânica (buscar, salvar, enviar). Resultado: custo menor que a Opção 1 (menos tokens), muito mais controle que a Opção 3 (menos código manual).
+# Guia Completo: Automação de Leads com Claude como Orquestrador
 
 ---
 
-## O Fluxo Completo
+## Antes de começar — O que é o custo por lead?
 
-```
-[Busca de Empresas]
-       ↓
-[Claude Filtra os Leads]
-       ↓
-[Verifica se tem site]
-       ↓
-[Claude Gera o Site]
-       ↓
-[Hospeda o Site]
-       ↓
-[Claude Escreve a Proposta]
-       ↓
-[Envia o E-mail]
-```
+Cada API que você usa cobra por uso. Veja o que você paga para processar **1 lead do zero até o e-mail enviado**:
 
----
+| Etapa | Serviço | Custo em USD | Custo em BRL* |
+|-------|---------|-------------|--------------|
+| Buscar empresas | Google Places API | $0,002 | ~R$0,01 |
+| Filtrar leads | Claude API | $0,005 | ~R$0,03 |
+| Verificar site | HTTP request | Grátis | R$0,00 |
+| Gerar site HTML | Claude API | $0,08 | ~R$0,45 |
+| Hospedar preview | Netlify | Grátis | R$0,00 |
+| Escrever e-mail | Claude API | $0,005 | ~R$0,03 |
+| Enviar e-mail | Brevo (grátis) | Grátis | R$0,00 |
+| **TOTAL** | | **~$0,09** | **~R$0,50** |
 
-## Passo 1 — Busca de Empresas
+*Câmbio aproximado R$5,60 por dólar
 
-**Ferramentas:** Google Maps API, Apollo.io, Hunter.io, ou Outscraper
-
-### Como configurar no Make/N8N:
-
-1. **Crie um webhook** que receba: categoria + cidade
-   - Exemplo: `{ "categoria": "restaurante", "cidade": "São Paulo" }`
-
-2. **Adicione um módulo HTTP** que chama a API do Google Places:
-   ```
-   GET https://maps.googleapis.com/maps/api/place/textsearch/json
-     ?query=restaurante+São+Paulo
-     &key=SUA_API_KEY
-   ```
-
-3. **Salve os dados relevantes** de cada empresa:
-   - Nome
-   - Telefone
-   - Endereço
-   - Website (se tiver)
-   - Avaliação
-
-> **Dica:** Comece com 20-50 empresas por rodada para não estourar créditos de API.
+**Resumo prático:** Para prospectar 100 empresas você gasta ~R$50. Se fechar 2 clientes a R$800 cada = R$1.600 de receita com R$50 de custo.
 
 ---
 
-## Passo 2 — Claude Filtra os Leads
-
-Aqui o Claude entra pela primeira vez. Você envia a lista de empresas e ele decide quem vale a pena abordar.
-
-### Prompt base para o filtro:
+## Visão Geral do Fluxo
 
 ```
-Você é um analista de prospecção B2B.
-
-Recebi essa lista de empresas da categoria [CATEGORIA] em [CIDADE]:
-[LISTA_JSON]
-
-Filtre e retorne APENAS as empresas que:
-1. Não têm site OU têm um site claramente desatualizado/amador
-2. Têm avaliação acima de 3.5 estrelas (sinalizando negócio ativo)
-3. Têm pelo menos 10 avaliações no Google
-
-Retorne um JSON com os campos: nome, telefone, email (se disponível), 
-website_status (sem_site / site_ruim), motivo_filtro.
-```
-
-### No Make/N8N:
-
-- Módulo **Claude API** (ou OpenAI API)
-- Passe o JSON da lista no prompt
-- Parse o JSON de resposta para o próximo passo
-
----
-
-## Passo 3 — Verificação de Site
-
-Antes de gerar o site, confirme automaticamente se o lead realmente não tem site ou tem um ruim.
-
-### Opções de verificação:
-
-**Opção A — Simples (grátis):**
-- Módulo HTTP que faz um GET no domínio da empresa
-- Se retornar 404/timeout = sem site ✅
-- Se retornar 200 = passa para o Claude avaliar
-
-**Opção B — Com Claude:**
-```
-Acesse esse site: [URL]
-Avalie em 3 critérios:
-1. Tem versão mobile? (sim/não)
-2. Parece profissional? (1 a 5)
-3. Tem botão de contato/WhatsApp? (sim/não)
-
-Se a nota for 2 ou menos em profissionalismo, classifique como "site_ruim".
-Retorne JSON: { "status": "sem_site" | "site_ruim" | "site_ok", "motivo": "..." }
+TRIGGER (manual ou agendado)
+         │
+         ▼
+┌─────────────────────┐
+│  Busca de Empresas  │  ← Google Places API
+│  (por nicho/cidade) │
+└─────────┬───────────┘
+          │ lista de empresas
+          ▼
+┌─────────────────────┐
+│  Claude Filtra      │  ← descarta quem já tem site bom
+│  os Leads           │
+└─────────┬───────────┘
+          │ leads qualificados
+          ▼
+┌─────────────────────┐
+│  Verifica Site      │  ← HTTP GET no domínio
+│  (tem ou não tem?)  │
+└─────────┬───────────┘
+          │ confirmado: sem site ou site ruim
+          ▼
+┌─────────────────────┐
+│  Claude Gera        │  ← HTML completo personalizado
+│  o Site             │
+└─────────┬───────────┘
+          │ código HTML
+          ▼
+┌─────────────────────┐
+│  Deploy no Netlify  │  ← URL pública gerada
+└─────────┬───────────┘
+          │ link do preview
+          ▼
+┌─────────────────────┐
+│  Claude Escreve     │  ← e-mail com link do preview
+│  a Proposta         │
+└─────────┬───────────┘
+          │ assunto + corpo
+          ▼
+┌─────────────────────┐
+│  Envia E-mail       │  ← Brevo ou Gmail
+│  + Registra Planilha│
+└─────────────────────┘
 ```
 
 ---
 
-## Passo 4 — Claude Gera o Site
+## FASE 0 — Configuração Inicial
 
-Esse é o coração do produto. O Claude gera um site HTML completo e personalizado para o negócio.
+### 0.1 — Contas e APIs necessárias
 
-### Prompt base para geração de site:
+**Checklist de contas para criar:**
 
-```
-Você é um desenvolvedor web especialista em sites de pequenas empresas.
-
-Crie um site HTML completo (index.html em arquivo único, com CSS e JS embutidos) para:
-
-- Nome: [NOME_EMPRESA]
-- Categoria: [CATEGORIA]
-- Cidade: [CIDADE]
-- Telefone: [TELEFONE]
-
-Requisitos:
-- Design moderno, responsivo e mobile-first
-- Seções: Hero, Sobre, Serviços, Depoimentos (fictícios), Contato
-- Botão flutuante de WhatsApp com o número [TELEFONE]
-- Paleta de cores adequada para [CATEGORIA]
-- Formulário de contato simples
-- Google Fonts incluído via CDN
-- Sem dependências externas além de Google Fonts e Font Awesome
-
-Retorne APENAS o código HTML, sem explicações.
-```
-
-### Variáveis de personalização por categoria:
-
-| Categoria | Paleta sugerida | Seções extras |
-|-----------|----------------|---------------|
-| Restaurante | Vermelho/laranja | Cardápio, Horários |
-| Clínica | Azul/verde | Especialidades, Planos |
-| Salão | Rosa/roxo | Serviços, Agendamento |
-| Loja | Neutro/amarelo | Produtos em destaque |
-| Academia | Preto/laranja | Modalidades, Planos |
+- [ ] Conta no **Make** (make.com) — plano grátis tem 1.000 operações/mês
+- [ ] Conta na **Anthropic** (console.anthropic.com) — para usar o Claude via API
+- [ ] Conta no **Google Cloud** (console.cloud.google.com) — para Google Places
+- [ ] Conta no **Netlify** (netlify.com) — para hospedar os previews
+- [ ] Conta no **Brevo** (brevo.com) — para enviar e-mails
+- [ ] Conta no **Google** com e-mail dedicado à prospecção (ex: contato@seudominio.com)
+- [ ] Planilha no **Google Sheets** para controle dos leads
 
 ---
 
-## Passo 5 — Hospedagem do Site
+### 0.2 — Como pegar cada chave de API
 
-Você precisa de uma URL pública para mandar na proposta. Opções por custo:
+**Claude (Anthropic):**
+1. Acesse console.anthropic.com
+2. Clique em "API Keys" no menu lateral
+3. Clique em "Create Key"
+4. Copie e salve em lugar seguro — ela só aparece uma vez
+5. Adicione crédito em "Billing" (comece com $5 para testar)
 
-### Opção A — GitHub Pages (grátis)
-1. Crie um repositório por cliente via API do GitHub
-2. Faça push do HTML via API
-3. Ative o Pages — URL gerada: `seuusuario.github.io/nome-empresa`
-
-**No Make/N8N:**
-```
-POST https://api.github.com/repos
-Authorization: token SEU_TOKEN
-Body: { "name": "preview-nome-empresa", "auto_init": true }
-
-PUT https://api.github.com/repos/SEU_USER/preview-nome-empresa/contents/index.html
-Body: { "message": "add site", "content": "[HTML em base64]" }
-```
-
-### Opção B — Netlify (grátis, mais rápido)
-- Use o módulo Netlify no Make/N8N
-- Deploy via API com o HTML gerado
-- URL gerada em segundos: `nome-empresa-preview.netlify.app`
-
-### Opção C — Vercel (grátis)
-- Similar ao Netlify, boa para sites com JS
-
-> **Recomendação:** Netlify é a mais fácil de integrar com Make/N8N e gera URLs limpas automaticamente.
+**Checklist Claude:**
+- [ ] Conta criada na Anthropic
+- [ ] Chave de API gerada e salva
+- [ ] Crédito adicionado (mínimo $5)
+- [ ] Testou chamada simples no Postman ou curl
 
 ---
 
-## Passo 6 — Claude Escreve a Proposta
+**Google Places API:**
+1. Acesse console.cloud.google.com
+2. Crie um novo projeto (botão no topo)
+3. Vá em "APIs e Serviços" → "Biblioteca"
+4. Busque "Places API" e ative
+5. Vá em "Credenciais" → "Criar credencial" → "Chave de API"
+6. Copie a chave gerada
+7. Restrinja a chave: em "Restrições de API" selecione só "Places API"
 
-Com a URL do preview em mãos, o Claude personaliza o e-mail de proposta.
+**Checklist Google Places:**
+- [ ] Projeto criado no Google Cloud
+- [ ] Places API ativada
+- [ ] Chave de API gerada
+- [ ] Chave restrita à Places API
+- [ ] Conta de cobrança configurada (obrigatório, mas tem $200 grátis/mês)
 
-### Prompt base para e-mail:
+---
 
+**Netlify:**
+1. Crie conta em netlify.com com GitHub
+2. Vá em "User Settings" → "Applications" → "Personal access tokens"
+3. Clique em "New access token"
+4. Dê um nome (ex: "make-automacao") e clique "Generate"
+5. Copie o token
+
+**Checklist Netlify:**
+- [ ] Conta criada
+- [ ] Token de acesso pessoal gerado e salvo
+- [ ] Testou deploy manual de um HTML simples
+
+---
+
+**Brevo:**
+1. Crie conta em brevo.com
+2. Vá em "SMTP & API" no menu lateral
+3. Clique em "API Keys" → "Generate a new API key"
+4. Copie a chave
+5. Configure o remetente em "Senders & IPs" → "Senders"
+
+**Checklist Brevo:**
+- [ ] Conta criada
+- [ ] Chave de API gerada
+- [ ] Remetente verificado (precisa confirmar o e-mail)
+- [ ] Testou envio de e-mail de teste
+
+---
+
+### 0.3 — Planilha de controle no Google Sheets
+
+Crie uma planilha com as colunas abaixo. Essa planilha vai registrar cada lead processado.
+
+**Colunas da planilha:**
+
+| Coluna | O que guardar |
+|--------|--------------|
+| A — Data | Data do processamento |
+| B — Nome | Nome da empresa |
+| C — Categoria | Nicho (restaurante, clínica...) |
+| D — Cidade | Cidade |
+| E — Telefone | Telefone/WhatsApp |
+| F — E-mail | E-mail encontrado |
+| G — Status Site | sem_site / site_ruim / site_ok |
+| H — URL Preview | Link do site gerado no Netlify |
+| I — E-mail Enviado | sim / não |
+| J — Status Lead | novo / respondeu / fechou / descartado |
+| K — Observações | Notas manuais |
+
+**Checklist Google Sheets:**
+- [ ] Planilha criada com todas as colunas
+- [ ] Compartilhada com a conta do Make (ou conectada via OAuth)
+- [ ] Testou adicionar linha manualmente
+
+---
+
+## FASE 1 — Montando o Fluxo no Make
+
+Acesse make.com → "Create a new scenario"
+
+---
+
+### Módulo 1 — Webhook (Gatilho)
+
+O webhook é como você dispara o fluxo. Você vai enviar uma requisição com o nicho e a cidade que quer prospectar.
+
+**Passo a passo no Make:**
+1. Clique no "+" para adicionar o primeiro módulo
+2. Busque "Webhooks" → selecione "Custom webhook"
+3. Clique em "Add" para criar um novo webhook
+4. Dê o nome "disparar-prospeccao"
+5. Copie a URL gerada (ex: `https://hook.eu1.make.com/abc123`)
+6. Clique em "Save"
+
+**Estrutura do JSON que você vai enviar para disparar:**
+```json
+{
+  "nicho": "restaurante",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "limite": 20
+}
 ```
-Você é um especialista em vendas de serviços digitais para pequenas empresas.
 
-Escreva um e-mail de prospecção para:
+**Como testar o webhook:**
+Abra o terminal ou use o Postman:
+```
+POST https://hook.eu1.make.com/SUA_URL_AQUI
+Content-Type: application/json
 
-- Empresa: [NOME_EMPRESA]
-- Categoria: [CATEGORIA]
-- Cidade: [CIDADE]
-- Link do site preview: [URL_PREVIEW]
-
-O e-mail deve:
-- Ter assunto chamativo (não genérico)
-- Mostrar que você já fez o trabalho (link do preview)
-- Ser curto (máx 150 palavras no corpo)
-- Ter tom amigável, não vendedor
-- Terminar com uma pergunta simples para iniciar conversa
-- Mencionar que o site está pronto e pode ser ativado hoje
-
-Retorne JSON: { "assunto": "...", "corpo": "..." }
+{
+  "nicho": "restaurante",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "limite": 20
+}
 ```
 
-### Exemplo de e-mail gerado:
-
-> **Assunto:** Fiz um site para o [Nome do Restaurante] — dá uma olhada
->
-> Oi, tudo bem?
->
-> Vi que o [Nome] ainda não tem presença online e resolvi criar um exemplo pra vocês verem como ficaria: [link]
->
-> Já está responsivo, tem botão de WhatsApp e pode receber pedidos de reserva.
->
-> Se gostar, consigo ativar em menos de 24 horas por um valor bem acessível.
->
-> O que acha?
+**Checklist Módulo 1:**
+- [ ] Webhook criado no Make
+- [ ] URL do webhook copiada e salva
+- [ ] Testou envio do JSON e o Make recebeu os dados
+- [ ] Os campos nicho, cidade, estado e limite aparecem no Make
 
 ---
 
-## Passo 7 — Envio do E-mail
+### Módulo 2 — Busca no Google Places
 
-### Opções de envio:
+**Passo a passo no Make:**
+1. Clique em "+" após o webhook
+2. Busque "HTTP" → selecione "Make a request"
+3. Configure:
+   - **URL:** `https://maps.googleapis.com/maps/api/place/textsearch/json`
+   - **Method:** GET
+   - **Query String:** adicione os parâmetros abaixo
 
-**Para volume baixo (até 200/dia):**
-- Gmail via módulo nativo do Make/N8N
-- Conta Google Workspace dedicada para prospecção
+**Parâmetros da requisição:**
 
-**Para volume médio (200-1000/dia):**
-- Brevo (ex-Sendinblue) — grátis até 300/dia
-- Mailgun — pago por volume, boa entregabilidade
+| Parâmetro | Valor no Make |
+|-----------|--------------|
+| query | `{{1.nicho}} {{1.cidade}} {{1.estado}}` |
+| key | SUA_CHAVE_GOOGLE_PLACES |
+| language | pt-BR |
+| region | br |
 
-**Para volume alto (+1000/dia):**
-- Amazon SES — $0,10 por 1000 e-mails
-- Postmark — foco em entregabilidade
-
-> **Importante:** Sempre use uma conta de e-mail separada da principal para prospecção. Configure SPF, DKIM e DMARC para melhorar entregabilidade.
-
----
-
-## Arquitetura Completa no Make
-
-```
-Webhook (trigger manual)
-    ↓
-Google Places API (busca empresas)
-    ↓
-Iterator (percorre cada empresa)
-    ↓
-Claude API — Filtro de leads
-    ↓
-Router (tem site? sim/não)
-    ↓ (sem site ou site ruim)
-Claude API — Gera HTML do site
-    ↓
-Netlify API — Faz deploy
-    ↓
-Claude API — Gera e-mail personalizado
-    ↓
-Gmail/Brevo — Envia e-mail
-    ↓
-Google Sheets — Registra resultado
+**O que você vai receber:**
+```json
+{
+  "results": [
+    {
+      "name": "Restaurante do João",
+      "formatted_address": "Rua X, 123 - São Paulo",
+      "formatted_phone_number": "(11) 9999-9999",
+      "website": "http://restaurantedojoao.com.br",
+      "rating": 4.2,
+      "user_ratings_total": 87
+    }
+  ]
+}
 ```
 
----
-
-## Custos Estimados por Lead
-
-| Item | Custo aproximado |
-|------|-----------------|
-| Google Places API | $0,002 por empresa buscada |
-| Claude (filtro) | ~$0,01 por lote de 20 |
-| Claude (gerar site) | ~$0,05-0,10 por site |
-| Claude (e-mail) | ~$0,01 por e-mail |
-| Netlify (hospedagem) | Grátis (100 deploys/mês) |
-| Gmail/Brevo | Grátis até 300/dia |
-| **Total por lead** | **~$0,08-0,15** |
-
-Para 100 leads: **~$8-15 no total**
+**Checklist Módulo 2:**
+- [ ] Módulo HTTP criado
+- [ ] URL da API configurada
+- [ ] Chave do Google inserida
+- [ ] Parâmetros mapeados do webhook
+- [ ] Testou e recebeu lista de empresas na resposta
 
 ---
 
-## Como Começar (Roadmap Simples)
+### Módulo 3 — Iterator (percorre cada empresa)
 
-### Semana 1 — Validação manual
-1. Escolha 1 nicho e 1 cidade
-2. Encontre 5 empresas manualmente no Google Maps
-3. Use o Claude manualmente para gerar os 5 sites
-4. Envie os e-mails manualmente
-5. Veja qual taxa de resposta você consegue
+Esse módulo divide a lista de resultados para processar uma empresa por vez.
 
-### Semana 2 — Automatiza parte 1
-1. Crie a conta no Make (plano grátis tem 1000 operações/mês)
-2. Monte os módulos de busca + filtro Claude
-3. Teste com 10 empresas
+**Passo a passo no Make:**
+1. Clique em "+" após o HTTP
+2. Busque "Flow Control" → selecione "Iterator"
+3. Em "Array", selecione `{{2.data.results}}` (o array de resultados do Google)
+4. Clique em "Save"
 
-### Semana 3 — Automatiza parte 2
-1. Integra geração de site + deploy Netlify
-2. Integra envio de e-mail
-3. Adiciona planilha de controle no Google Sheets
+A partir daqui, tudo que vier depois vai rodar uma vez para cada empresa encontrada.
 
-### Semana 4 — Escala
-1. Roda o fluxo para 50-100 empresas/semana
-2. Monitora taxa de resposta
-3. Ajusta os prompts conforme os resultados
+**Checklist Módulo 3:**
+- [ ] Iterator criado
+- [ ] Array mapeado para `results` da resposta do Google
+- [ ] Testou e viu o fluxo rodando para cada empresa separadamente
 
 ---
 
-## Dicas Importantes
+### Módulo 4 — Claude filtra o lead
 
-**Sobre os prompts:**
-- Salve os prompts que funcionam como templates no Make/N8N
-- Teste variações de tom (formal vs. informal) por nicho
-- Adicione campo para personalização manual antes do envio
+**Passo a passo no Make:**
+1. Clique em "+" após o Iterator
+2. Busque "HTTP" → "Make a request"
+3. Configure:
+   - **URL:** `https://api.anthropic.com/v1/messages`
+   - **Method:** POST
+   - **Headers:**
+     - `x-api-key`: SUA_CHAVE_CLAUDE
+     - `anthropic-version`: `2023-06-01`
+     - `content-type`: `application/json`
+   - **Body Type:** Raw
+   - **Content Type:** JSON
 
-**Sobre entregabilidade:**
-- Não envie mais de 50 e-mails por dia por conta
-- Use variação no assunto e corpo para evitar filtros de spam
-- Sempre inclua link de descadastro
+**Body da requisição:**
+```json
+{
+  "model": "claude-haiku-4-5-20251001",
+  "max_tokens": 300,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Analise essa empresa e me diga se é um bom lead para vender um site profissional.\n\nDados:\n- Nome: {{3.name}}\n- Endereço: {{3.formatted_address}}\n- Telefone: {{3.formatted_phone_number}}\n- Website atual: {{3.website}}\n- Avaliação: {{3.rating}} estrelas\n- Total de avaliações: {{3.user_ratings_total}}\n\nClassifique como:\n- 'qualificado' se: não tem site OU site parece amador/desatualizado, tem mais de 10 avaliações e nota acima de 3.5\n- 'descartado' se: já tem site profissional, ou tem poucas avaliações, ou nota abaixo de 3.0\n\nRetorne APENAS este JSON sem explicações:\n{\"status\": \"qualificado\" ou \"descartado\", \"motivo\": \"motivo em uma frase\", \"website_status\": \"sem_site\" ou \"site_ruim\" ou \"site_ok\"}"
+    }
+  ]
+}
+```
 
-**Sobre o produto:**
-- Cobre entre R$500-R$1500 pela ativação do site
-- Ofereça manutenção mensal de R$100-200
-- O preview gratuito é o gancho — a maioria vai querer ativar
+> **Por que usar claude-haiku?** É o modelo mais barato da Anthropic. Para tarefas simples de classificação como essa, ele funciona perfeitamente e custa 25x menos que o Sonnet.
+
+**Checklist Módulo 4:**
+- [ ] Módulo HTTP criado com URL da Anthropic
+- [ ] Headers configurados (x-api-key, anthropic-version, content-type)
+- [ ] Body montado com variáveis do Iterator mapeadas
+- [ ] Testou e recebeu JSON de classificação do Claude
+
+---
+
+### Módulo 5 — Router (separa qualificados dos descartados)
+
+**Passo a passo no Make:**
+1. Clique em "+" após o Claude
+2. Busque "Flow Control" → selecione "Router"
+3. Isso cria dois caminhos: um para qualificados e um para descartados
+
+**Configuração do caminho "qualificado":**
+1. Clique na seta do primeiro caminho
+2. Clique em "Set up a filter"
+3. Nome do filtro: "Lead Qualificado"
+4. Condição: `{{4.data.content[].text}}` contém `"qualificado"`
+
+**Configuração do caminho "descartado":**
+1. No segundo caminho, adicione um módulo Google Sheets
+2. Registre na planilha com status "descartado"
+3. Encerre esse caminho
+
+**Checklist Módulo 5:**
+- [ ] Router criado com dois caminhos
+- [ ] Filtro de qualificados configurado
+- [ ] Caminho de descartados registra na planilha e encerra
+
+---
+
+### Módulo 6 — Verifica se tem site (HTTP GET)
+
+Só para leads qualificados. Confirma se o site existe ou não.
+
+**Passo a passo no Make:**
+1. Após o router (caminho qualificado), adicione HTTP → "Make a request"
+2. Configure:
+   - **URL:** `{{3.website}}` (o website da empresa do Iterator)
+   - **Method:** GET
+   - **Follow Redirect:** Sim
+   - **Return error response:** Sim (importante!)
+3. Isso vai retornar o status HTTP (200 = tem site, 404/0 = sem site)
+
+**Checklist Módulo 6:**
+- [ ] Módulo HTTP de verificação criado
+- [ ] URL mapeada para o website da empresa
+- [ ] Configurado para não quebrar quando o site não existe
+- [ ] Testou com empresa que tem site e empresa que não tem
+
+---
+
+### Módulo 7 — Claude gera o site HTML
+
+Esse é o módulo mais importante. O Claude vai criar o site personalizado.
+
+**Passo a passo no Make:**
+1. Adicione HTTP → "Make a request"
+2. Configure igual ao Módulo 4 (mesmos headers da Anthropic)
+3. Use o modelo `claude-sonnet-4-6` aqui (precisa de mais capacidade para gerar código)
+
+**Body da requisição:**
+```json
+{
+  "model": "claude-sonnet-4-6",
+  "max_tokens": 8000,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Crie um site HTML completo para esta empresa. O site deve estar 100% em um único arquivo index.html com CSS e JavaScript embutidos.\n\nDados da empresa:\n- Nome: {{3.name}}\n- Categoria: {{1.nicho}}\n- Cidade: {{1.cidade}}\n- Telefone: {{3.formatted_phone_number}}\n- Endereço: {{3.formatted_address}}\n\nRequisitos obrigatórios:\n1. Design moderno, responsivo e mobile-first\n2. Header com logo em texto e menu de navegação\n3. Seção Hero com chamada para ação e botão de contato\n4. Seção Sobre com texto genérico adequado para {{1.nicho}}\n5. Seção Serviços com 4 cards de serviços típicos de {{1.nicho}}\n6. Seção Depoimentos com 3 depoimentos fictícios realistas\n7. Seção Contato com formulário simples e mapa placeholder\n8. Footer com dados da empresa\n9. Botão flutuante verde do WhatsApp no canto inferior direito linkando para https://wa.me/55{{3.formatted_phone_number}}\n10. Paleta de cores profissional adequada para {{1.nicho}}\n11. Google Fonts via CDN (escolha fonte adequada)\n12. Font Awesome via CDN para ícones\n13. Animações sutis de entrada com CSS\n14. Sem dependências externas além de Google Fonts e Font Awesome\n\nRetorne APENAS o código HTML completo, começando com <!DOCTYPE html> e terminando com </html>. Nenhum texto antes ou depois."
+    }
+  ]
+}
+```
+
+**Checklist Módulo 7:**
+- [ ] Módulo criado com modelo claude-sonnet-4-6
+- [ ] max_tokens em 8000 (site grande precisa de espaço)
+- [ ] Todos os dados da empresa mapeados no prompt
+- [ ] Testou e recebeu HTML válido na resposta
+- [ ] Abriu o HTML no navegador e está bonito
+
+---
+
+### Módulo 8 — Deploy no Netlify
+
+Pega o HTML gerado e coloca online com uma URL pública.
+
+**Passo a passo no Make:**
+1. Adicione HTTP → "Make a request"
+2. Configure:
+   - **URL:** `https://api.netlify.com/api/v1/sites`
+   - **Method:** POST
+   - **Headers:**
+     - `Authorization`: `Bearer SEU_TOKEN_NETLIFY`
+     - `Content-Type`: `application/zip`
+3. **Body:** aqui é o truque — você precisa enviar o HTML como um arquivo ZIP
+
+**Como montar o ZIP no Make:**
+
+O Make não tem módulo nativo de ZIP, então use a seguinte alternativa:
+
+**Alternativa simples — Netlify via form upload:**
+```
+POST https://api.netlify.com/api/v1/sites/{site_id}/deploys
+
+Headers:
+  Authorization: Bearer SEU_TOKEN
+  Content-Type: application/zip
+  
+Body: [arquivo zip com o index.html]
+```
+
+**Alternativa mais fácil — Criar site com deploy direto:**
+1. Primeiro cria o site:
+```json
+POST https://api.netlify.com/api/v1/sites
+{
+  "name": "preview-{{3.name | replace(' ', '-') | lowercase}}"
+}
+```
+2. Pega o `site_id` da resposta
+3. Faz o deploy via drag-and-drop da API
+
+> **Dica prática:** Para simplificar, use o módulo "Netlify" nativo do Make se aparecer nas integrações. Se não, considere usar o **Cloudflare Pages** que tem API mais simples para upload direto de HTML.
+
+**Checklist Módulo 8:**
+- [ ] Token do Netlify configurado
+- [ ] Site criado via API (guarde o site_id)
+- [ ] Deploy feito com o HTML gerado
+- [ ] URL pública gerada e salva para o próximo passo
+- [ ] Testou abrindo a URL no navegador
+
+---
+
+### Módulo 9 — Claude escreve o e-mail
+
+Com a URL do preview em mãos, o Claude personaliza o e-mail de prospecção.
+
+**Passo a passo no Make:**
+1. Adicione HTTP → "Make a request"
+2. Use o modelo `claude-haiku-4-5-20251001` (suficiente para e-mail)
+
+**Body da requisição:**
+```json
+{
+  "model": "claude-haiku-4-5-20251001",
+  "max_tokens": 500,
+  "messages": [
+    {
+      "role": "user",
+      "content": "Escreva um e-mail de prospecção para esta empresa.\n\nDados:\n- Nome da empresa: {{3.name}}\n- Segmento: {{1.nicho}}\n- Cidade: {{1.cidade}}\n- Link do site que criei para eles: {{8.deploy_url}}\n\nRegras do e-mail:\n1. Assunto curto e específico (não genérico)\n2. Corpo com no máximo 120 palavras\n3. Tom informal e direto\n4. Mencione que o site já está pronto no link\n5. Não fale em preço\n6. Termine com uma pergunta simples\n7. Assine como: Equipe [Seu Nome]\n\nRetorne APENAS este JSON:\n{\"assunto\": \"...\", \"corpo\": \"...\"}"
+    }
+  ]
+}
+```
+
+**Checklist Módulo 9:**
+- [ ] Módulo criado com Haiku
+- [ ] URL do preview mapeada da resposta do Netlify
+- [ ] Testou e recebeu JSON com assunto e corpo
+- [ ] Leu o e-mail gerado e está natural e convincente
+
+---
+
+### Módulo 10 — Envia o e-mail pelo Brevo
+
+**Passo a passo no Make:**
+1. Adicione HTTP → "Make a request"
+2. Configure:
+   - **URL:** `https://api.brevo.com/v3/smtp/email`
+   - **Method:** POST
+   - **Headers:**
+     - `api-key`: SUA_CHAVE_BREVO
+     - `content-type`: `application/json`
+
+**Body da requisição:**
+```json
+{
+  "sender": {
+    "name": "Seu Nome",
+    "email": "seuemail@dominio.com"
+  },
+  "to": [
+    {
+      "email": "{{3.email}}",
+      "name": "{{3.name}}"
+    }
+  ],
+  "subject": "{{parse_json(9.data.content[].text).assunto}}",
+  "textContent": "{{parse_json(9.data.content[].text).corpo}}"
+}
+```
+
+**Checklist Módulo 10:**
+- [ ] Chave do Brevo configurada
+- [ ] Remetente verificado no Brevo
+- [ ] Assunto e corpo mapeados da resposta do Claude
+- [ ] Testou enviando para seu próprio e-mail
+- [ ] E-mail chegou na caixa de entrada (não no spam)
+
+---
+
+### Módulo 11 — Registra na planilha Google Sheets
+
+Salva tudo para controle e acompanhamento futuro.
+
+**Passo a passo no Make:**
+1. Adicione "Google Sheets" → "Add a Row"
+2. Conecte sua conta Google
+3. Selecione a planilha e aba criada na Fase 0
+4. Mapeie as colunas:
+
+| Coluna na planilha | Valor no Make |
+|-------------------|--------------|
+| Data | `{{now}}` |
+| Nome | `{{3.name}}` |
+| Categoria | `{{1.nicho}}` |
+| Cidade | `{{1.cidade}}` |
+| Telefone | `{{3.formatted_phone_number}}` |
+| E-mail | `{{3.email}}` |
+| Status Site | `{{parse_json(4.data.content[].text).website_status}}` |
+| URL Preview | `{{8.deploy_url}}` |
+| E-mail Enviado | `sim` |
+| Status Lead | `novo` |
+
+**Checklist Módulo 11:**
+- [ ] Google Sheets conectado ao Make
+- [ ] Planilha e aba corretas selecionadas
+- [ ] Todas as colunas mapeadas
+- [ ] Testou e a linha apareceu na planilha
+
+---
+
+## FASE 2 — Testes antes de rodar pra valer
+
+Antes de mandar para 100 empresas, faça esses testes:
+
+### Teste 1 — Roda o fluxo com 1 empresa
+- [ ] Disparou o webhook com `"limite": 1`
+- [ ] O fluxo rodou sem erros
+- [ ] O site HTML foi gerado e está bonito no navegador
+- [ ] O deploy no Netlify criou uma URL pública
+- [ ] O e-mail foi enviado para o seu próprio e-mail de teste
+- [ ] A linha foi registrada na planilha
+
+### Teste 2 — Roda com 5 empresas
+- [ ] Disparou com `"limite": 5`
+- [ ] Todos os módulos rodaram sem erros
+- [ ] 5 linhas apareceram na planilha
+- [ ] Verificou que os e-mails não caíram no spam
+- [ ] Os sites gerados estão diferentes e personalizados
+
+### Teste 3 — Roda com 20 empresas
+- [ ] Disparou com `"limite": 20`
+- [ ] Monitorou o fluxo no Make em tempo real
+- [ ] Verificou o custo na Anthropic (deve ser < $2)
+- [ ] Verificou o custo no Google Cloud (deve ser < $0,05)
+- [ ] Sem erros críticos
+
+---
+
+## FASE 3 — Otimizações importantes
+
+### 3.1 — Tratamento de erros
+
+Adicione módulo de erro em cada chamada HTTP crítica:
+
+**Checklist de error handling:**
+- [ ] Módulo de fallback para quando o Claude não retornar JSON válido
+- [ ] Módulo de fallback para quando o Netlify falhar no deploy
+- [ ] Módulo que registra erros na planilha com status "erro"
+- [ ] Alerta por e-mail quando mais de 3 erros seguidos acontecerem
+
+### 3.2 — Anti-spam e entregabilidade
+
+- [ ] Configurou SPF no DNS do seu domínio
+- [ ] Configurou DKIM no DNS do seu domínio
+- [ ] Configurou DMARC no DNS do seu domínio
+- [ ] Está enviando no máximo 50 e-mails por hora
+- [ ] Tem link de descadastro no rodapé do e-mail
+- [ ] Testou entregabilidade em mail-tester.com (meta: acima de 8/10)
+
+### 3.3 — Variação nos e-mails
+
+Para evitar filtros de spam com e-mails idênticos:
+- [ ] Criou 3 variações diferentes do prompt de e-mail
+- [ ] Configurou o Make para escolher aleatoriamente entre elas
+- [ ] Testou que os e-mails gerados são diferentes entre si
+
+---
+
+## FASE 4 — Escala e acompanhamento
+
+### Rotina semanal recomendada
+
+**Segunda-feira:**
+- [ ] Define nicho e cidade da semana
+- [ ] Dispara o fluxo para 50 empresas
+- [ ] Verifica planilha: todos os leads foram processados?
+
+**Quarta-feira:**
+- [ ] Verifica respostas recebidas na caixa de entrada
+- [ ] Atualiza status na planilha para quem respondeu
+- [ ] Faz follow-up manual com os interessados
+
+**Sexta-feira:**
+- [ ] Dispara novo lote para 50 empresas
+- [ ] Revisa métricas da semana:
+  - Quantos leads processados
+  - Quantos e-mails enviados
+  - Taxa de abertura (via Brevo dashboard)
+  - Quantas respostas recebidas
+  - Quantos fechamentos
+
+### Métricas para acompanhar
+
+| Métrica | Referência inicial | Sua meta |
+|---------|-------------------|----------|
+| Taxa de abertura de e-mail | 20-30% | > 35% |
+| Taxa de resposta | 2-5% | > 5% |
+| Taxa de conversão (lead → cliente) | 10-20% das respostas | > 15% |
+| Custo por cliente fechado | ~R$25-50 | < R$100 |
+
+---
+
+## Referência Rápida — Onde fica cada coisa
+
+| O que você precisa | Onde achar |
+|---------------------|-----------|
+| Chave do Claude | console.anthropic.com → API Keys |
+| Chave do Google Places | console.cloud.google.com → Credenciais |
+| Token do Netlify | app.netlify.com → User Settings → Applications |
+| Chave do Brevo | app.brevo.com → SMTP & API → API Keys |
+| Custo Claude do mês | console.anthropic.com → Billing |
+| Custo Google do mês | console.cloud.google.com → Billing |
+| Status dos envios | app.brevo.com → Campaigns → Transactional |
+| Seus leads | Google Sheets (planilha criada na Fase 0) |
 
 ---
 
 ## Próximos Passos
 
-Quando você estiver pronto para montar:
-1. Crie conta no Make: make.com
-2. Pegue sua chave da API do Claude: console.anthropic.com
-3. Pegue a chave do Google Places: console.cloud.google.com
-4. Crie conta no Netlify: netlify.com
+1. **Hoje:** Crie todas as contas da Fase 0 e pegue as chaves de API
+2. **Esta semana:** Monte os Módulos 1 a 5 no Make e teste o filtro
+3. **Próxima semana:** Monte os Módulos 6 a 11 e faça os testes da Fase 2
+4. **Em 2 semanas:** Primeiro lote real de 50 empresas
 
-Qualquer dúvida em algum passo específico, é só perguntar.
+Qualquer módulo que travar, me manda o erro que eu resolvo.
