@@ -18,7 +18,7 @@
         en: 'Digital menu, online ordering and delivery integration for a local pizzeria.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '',
+      demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
       imageUrl: ''
     },
     barbearia: {
