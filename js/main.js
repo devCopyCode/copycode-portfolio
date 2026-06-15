@@ -29,7 +29,7 @@
         en: 'Conversion page with booking, services and WhatsApp button.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '',
+      demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
       imageUrl: ''
     },
     designer: {
