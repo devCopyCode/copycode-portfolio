@@ -63,7 +63,7 @@
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoUrl: '',
-      imageUrl: ''
+      imageUrl: 'assets/projeto-advogado.webp'
     },
     marketing: {
       category: { pt: 'Marketing', en: 'Marketing' },
