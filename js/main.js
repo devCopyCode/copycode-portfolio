@@ -62,7 +62,7 @@
         en: 'Business website with practice areas, credibility and contact form.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '',
+      demoUrl: 'https://advogado-template.netlify.app',
       imageUrl: 'assets/projeto-advogado.webp'
     },
     marketing: {
