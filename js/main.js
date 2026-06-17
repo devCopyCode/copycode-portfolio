@@ -19,7 +19,7 @@
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
-      imageUrl: 'https://media.discordapp.net/attachments/1014291515138388010/1516272131510374421/image.png?ex=6a3209f7&is=6a30b877&hm=89f2a6518a930392c901da0e3890f0921c3c9be0e690c9dbb9832d3f5f18a926&=&format=webp&quality=lossless&width=1148&height=562'
+      imageUrl: 'assets/projeto-pizzaria.webp'
     },
     barbearia: {
       category: { pt: 'Beleza', en: 'Beauty' },
