@@ -34,6 +34,18 @@
   align-items: center;
 }
 
+.plans-hero__main,
+.plans-hero__visual,
+.plan-card,
+.quiz,
+.comparison__mobile,
+.domain__content,
+.domain__urls,
+.hosting__content,
+.hosting__list {
+  min-width: 0;
+}
+
 .plans-hero__label {
   display: inline-flex;
   align-items: center;
@@ -58,9 +70,11 @@
 .plans-hero__title {
   font-size: clamp(2.2rem, 4.8vw, 3.75rem);
   font-weight: 600;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
   line-height: 1.1;
   margin-bottom: 24px;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .plans-hero__subtitle {
@@ -344,9 +358,10 @@
 .plan-card__price {
   font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 600;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: var(--white);
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .plan-card__period {
@@ -1079,6 +1094,8 @@
   color: var(--text-dark);
   flex: 1;
   letter-spacing: -0.01em;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .domain-url__ext {
@@ -1328,8 +1345,23 @@
 
 @media (max-width: 768px) {
   .plans-hero {
-    padding-top: calc(var(--header-height) + 48px);
+    padding-top: calc(var(--header-height) + 42px);
     padding-bottom: 72px;
+  }
+
+  .plans-hero__inner {
+    gap: 40px;
+  }
+
+  .plans-hero__title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    line-height: 1.12;
+  }
+
+  .plans-hero__subtitle {
+    max-width: 100%;
+    margin-bottom: 34px;
+    font-size: 1rem;
   }
 
   .plans-hero__features {
@@ -1344,6 +1376,11 @@
   .plans-code-window,
   .plans-hero__stats {
     max-width: 100%;
+  }
+
+  .plans-code-window__body {
+    font-size: 0.74rem;
+    line-height: 1.85;
   }
 
   .plans-toggle-section {
@@ -1371,6 +1408,12 @@
     display: block;
   }
 
+  .comp-mobile-head__col,
+  .comp-mobile-row-simple > div,
+  .comp-mobile-row__val {
+    overflow-wrap: anywhere;
+  }
+
   .modality__grid {
     grid-template-columns: 1fr;
   }
@@ -1390,6 +1433,11 @@
   .quiz__result {
     padding: 36px 24px;
   }
+
+  .info__item {
+    gap: 12px;
+    padding: 18px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1398,8 +1446,30 @@
     align-items: stretch;
   }
 
+  .plans-hero {
+    padding-top: calc(var(--header-height) + 30px);
+    padding-bottom: 60px;
+  }
+
+  .plans-hero__title {
+    font-size: clamp(1.9rem, 10vw, 2.55rem);
+  }
+
+  .plans-hero__actions .btn,
+  .plans-cta__actions .btn {
+    width: 100%;
+  }
+
   .plan-card {
-    padding: 32px 22px;
+    padding: 30px 20px;
+  }
+
+  .plan-card__name {
+    font-size: 1.35rem;
+  }
+
+  .plan-card__price {
+    font-size: clamp(1.55rem, 8vw, 2rem);
   }
 
   .plans-cta__actions {
@@ -1417,14 +1487,49 @@
     gap: 10px;
   }
 
+  .quiz__btn {
+    justify-content: center;
+  }
+
   .quiz__btn--next {
     width: 100%;
     justify-content: center;
   }
 
+  .quiz__btn--back {
+    flex: 1;
+  }
+
   .domain-url__name {
     font-size: 0.78rem;
     padding: 12px 10px;
+  }
+
+  .domain-url__protocol {
+    padding: 12px 10px;
+  }
+
+  .comp-mobile-head__col {
+    padding: 9px 6px;
+    font-size: 0.68rem;
+  }
+
+  .comp-mobile-row-simple {
+    grid-template-columns: minmax(86px, 1.05fr) repeat(3, minmax(0, 1fr));
+  }
+
+  .comp-mobile-row-simple > div {
+    padding: 10px 6px;
+    font-size: 0.72rem;
+  }
+
+  .modality__block {
+    padding: 32px 20px;
+  }
+
+  .domain__note,
+  .info__item {
+    flex-direction: column;
   }
 }
 
@@ -1438,6 +1543,28 @@
     text-align: center;
     font-size: 0.78rem;
     padding: 10px 12px;
+    white-space: normal;
+  }
+
+  .plans-hero__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-card {
+    padding: 28px 18px;
+  }
+
+  .plans-code-window__body {
+    padding: 18px;
+    font-size: 0.68rem;
+  }
+
+  .comp-mobile-row-simple {
+    grid-template-columns: minmax(74px, 0.95fr) repeat(3, minmax(0, 1fr));
+  }
+
+  .comp-mobile-row-simple > div {
+    font-size: 0.68rem;
   }
 }
 

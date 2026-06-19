@@ -17,6 +17,14 @@
       navAbout: 'Sobre',
       navContact: 'Contato',
       navQuote: 'Solicitar orçamento',
+      logoLabel: 'Copy & Code',
+      logoHomeLabel: 'Copy & Code — Página inicial',
+      mainMenuLabel: 'Menu principal',
+      languageSelect: 'Selecionar idioma',
+      languagePortuguese: 'Português',
+      languageEnglish: 'English',
+      languagePortugueseFull: 'Português do Brasil',
+      languageEnglishFull: 'Inglês',
 
       heroAvailability: 'Disponível para novos projetos',
       heroTitleLine1: 'Criamos experiências digitais',
@@ -31,7 +39,7 @@
       heroScroll: 'Rolar',
 
       impactStatement: 'Estratégia, design e desenvolvimento trabalhando juntos.',
-      impactText: 'Cada projeto da Copy E Code nasce de um processo claro: entender o negócio, definir a direção visual e construir uma solução rápida, responsiva e feita para durar.',
+      impactText: 'Cada projeto da Copy & Code nasce de um processo claro: entender o negócio, definir a direção visual e construir uma solução rápida, responsiva e feita para durar.',
 
       servicesLabel: 'O que fazemos',
       servicesTitle: 'Serviços',
@@ -119,8 +127,8 @@
       process6Text: 'Publicação do projeto, orientação de uso e acompanhamento contínuo.',
 
       aboutLabel: 'Quem somos',
-      aboutTitle: 'Sobre a Copy E Code',
-      aboutText1: 'A Copy E Code é uma empresa de tecnologia focada no desenvolvimento de sites profissionais, landing pages e sistemas web sob medida. Cada projeto é planejado do zero, combinando estratégia, design e código limpo.',
+      aboutTitle: 'Sobre a Copy & Code',
+      aboutText1: 'A Copy & Code é uma empresa de tecnologia focada no desenvolvimento de sites profissionais, landing pages e sistemas web sob medida. Cada projeto é planejado do zero, combinando estratégia, design e código limpo.',
       aboutText2: 'Não entregamos apenas páginas. Construímos ferramentas digitais para empresas crescerem — com atenção a performance, identidade visual e experiência do usuário em cada detalhe.',
       aboutTag1: 'Web Design',
       aboutTag2: 'Desenvolvimento',
@@ -192,7 +200,7 @@
       footerServicesTitle: 'Serviços',
       footerContactTitle: 'Contato',
       footerBackToTop: 'Voltar ao topo',
-      footerRights: '© <span id="footerYear"></span> Copy E Code. Todos os direitos reservados.',
+      footerRights: '© <span id="footerYear"></span> Copy & Code. Todos os direitos reservados.',
 
       modalBadge: 'Conceito visual',
       modalDemoBtn: 'Ver projeto demonstrativo',
@@ -208,12 +216,12 @@
       waBudget: '*Faixa de orçamento:*',
       waMessage: '*Mensagem:*',
 
-      metaDescription: 'Copy E Code — Desenvolvimento de sites profissionais, landing pages, sistemas web e redesign de interfaces com identidade própria, performance e design editorial.',
-      ogTitle: 'Copy E Code — Sites, sistemas e interfaces sob medida',
-      ogDescription: 'Estratégia, design e desenvolvimento trabalhando juntos para transformar ideias em negócios digitais.',
-      pageTitle: 'COPY CODE',
+      metaDescription: 'Criamos sites, sistemas e estratégias de marketing sob medida para empresas que querem crescer, fortalecer sua presença digital e transformar ideias em resultados.',
+      ogTitle: 'Copy & Code — Sites, Sistemas, Marketing e Trabalho Profissional',
+      ogDescription: 'Criamos sites, sistemas e estratégias de marketing sob medida para empresas que querem crescer, fortalecer sua presença digital e transformar ideias em resultados.',
+      pageTitle: 'Copy & Code — Sites, Sistemas, Marketing e Trabalho Profissional',
 
-      plansHeroLabel: 'PLANOS COPY E CODE',
+      plansHeroLabel: 'PLANOS COPY & CODE',
       plansHeroTitle: 'Um site profissional para cada etapa do seu negócio.',
       plansHeroSubtitle: 'Escolha entre uma solução essencial, uma presença digital completa ou um sistema desenvolvido sob medida. Todos os planos incluem desempenho, segurança e suporte contínuo.',
       plansHeroCtaCompare: 'Comparar planos',
@@ -385,7 +393,7 @@
       domainLabel: 'Domínio',
       domainTitle: 'Domínio incluído em todos os planos',
       domainText1: 'Os planos incluem o registro e a administração de 1 domínio padrão enquanto o contrato estiver ativo ou durante o período informado na proposta.',
-      domainText2: 'O domínio é registrado no nome, CPF ou CNPJ do cliente. A Copy E Code cuida da configuração e administração técnica.',
+      domainText2: 'O domínio é registrado no nome, CPF ou CNPJ do cliente. A Copy & Code cuida da configuração e administração técnica.',
       domainNote: 'Domínios premium, nomes já registrados por terceiros ou extensões com valor elevado serão cobrados separadamente.',
 
       hostingLabel: 'Hospedagem',
@@ -413,9 +421,9 @@
       plansFaqLabel: 'Dúvidas',
       plansFaqTitle: 'Perguntas frequentes',
       plansFaq1Q: 'O domínio realmente fica no nome do cliente?',
-      plansFaq1A: 'Sim. O domínio é registrado no nome, CPF ou CNPJ do cliente. A Copy E Code cuida da configuração técnica durante a vigência do plano.',
+      plansFaq1A: 'Sim. O domínio é registrado no nome, CPF ou CNPJ do cliente. A Copy & Code cuida da configuração técnica durante a vigência do plano.',
       plansFaq2Q: 'O que acontece depois dos primeiros 12 meses?',
-      plansFaq2A: 'Após os primeiros 12 meses, o cliente pode contratar o Plano de Cuidados da Copy E Code ou transferir o site para outra hospedagem. As condições são definidas na proposta comercial.',
+      plansFaq2A: 'Após os primeiros 12 meses, o cliente pode contratar o Plano de Cuidados da Copy & Code ou transferir o site para outra hospedagem. As condições são definidas na proposta comercial.',
       plansFaq3Q: 'Posso cancelar o plano mensal?',
       plansFaq3A: 'Sim, respeitando a permanência mínima prevista no contrato. Os detalhes de cancelamento são definidos em proposta comercial.',
       plansFaq4Q: 'Posso transferir o site para outra hospedagem?',
@@ -443,8 +451,8 @@
       plansFinalCtaQuote: 'Solicitar orçamento',
       plansFinalCtaTrust: 'Atendimento direto, proposta transparente e projeto desenvolvido de acordo com as necessidades do seu negócio.',
 
-      plansMetaDescription: 'Conheça os planos de criação de sites da Copy E Code. Sites profissionais com domínio, hospedagem, manutenção e suporte para empresas de diferentes tamanhos.',
-      plansOgTitle: 'Planos de Criação de Sites | Copy E Code',
+      plansMetaDescription: 'Conheça os planos de criação de sites da Copy & Code. Sites profissionais com domínio, hospedagem, manutenção e suporte para empresas de diferentes tamanhos.',
+      plansOgTitle: 'Planos de Criação de Sites | Copy & Code',
       plansPageTitle: 'Planos | COPY CODE',
 
       plansPreviewLabel: 'PLANOS',
@@ -512,6 +520,14 @@
       navAbout: 'About',
       navContact: 'Contact',
       navQuote: 'Request a quote',
+      logoLabel: 'Copy & Code',
+      logoHomeLabel: 'Copy & Code — Home page',
+      mainMenuLabel: 'Main menu',
+      languageSelect: 'Select language',
+      languagePortuguese: 'Português',
+      languageEnglish: 'English',
+      languagePortugueseFull: 'Brazilian Portuguese',
+      languageEnglishFull: 'English',
 
       heroAvailability: 'Available for new projects',
       heroTitleLine1: 'We create digital experiences',
@@ -526,7 +542,7 @@
       heroScroll: 'Scroll',
 
       impactStatement: 'Strategy, design and development working together.',
-      impactText: 'Every Copy E Code project starts with a clear process: understanding the business, defining the visual direction, and building a fast, responsive solution made to last.',
+      impactText: 'Every Copy & Code project starts with a clear process: understanding the business, defining the visual direction, and building a fast, responsive solution made to last.',
 
       servicesLabel: 'What we do',
       servicesTitle: 'Services',
@@ -614,8 +630,8 @@
       process6Text: 'Launching the project, usage guidance and ongoing support.',
 
       aboutLabel: 'Who we are',
-      aboutTitle: 'About Copy E Code',
-      aboutText1: 'Copy E Code is a technology company focused on building professional websites, landing pages and custom web systems. Every project is planned from scratch, combining strategy, design and clean code.',
+      aboutTitle: 'About Copy & Code',
+      aboutText1: 'Copy & Code is a technology company focused on building professional websites, landing pages and custom web systems. Every project is planned from scratch, combining strategy, design and clean code.',
       aboutText2: "We don't just deliver pages. We build digital tools for businesses to grow — with attention to performance, visual identity and user experience in every detail.",
       aboutTag1: 'Web Design',
       aboutTag2: 'Development',
@@ -687,7 +703,7 @@
       footerServicesTitle: 'Services',
       footerContactTitle: 'Contact',
       footerBackToTop: 'Back to top',
-      footerRights: '© <span id="footerYear"></span> Copy E Code. All rights reserved.',
+      footerRights: '© <span id="footerYear"></span> Copy & Code. All rights reserved.',
 
       modalBadge: 'Visual concept',
       modalDemoBtn: 'View live demo',
@@ -703,12 +719,12 @@
       waBudget: '*Budget range:*',
       waMessage: '*Message:*',
 
-      metaDescription: 'Copy E Code — Professional website development, landing pages, web systems and interface redesign with a distinctive identity, performance and editorial design.',
-      ogTitle: 'Copy E Code — Custom websites, systems and interfaces',
-      ogDescription: 'Strategy, design and development working together to turn ideas into digital businesses.',
-      pageTitle: 'COPY CODE',
+      metaDescription: 'Criamos sites, sistemas e estratégias de marketing sob medida para empresas que querem crescer, fortalecer sua presença digital e transformar ideias em resultados.',
+      ogTitle: 'Copy & Code — Sites, Sistemas, Marketing e Trabalho Profissional',
+      ogDescription: 'Criamos sites, sistemas e estratégias de marketing sob medida para empresas que querem crescer, fortalecer sua presença digital e transformar ideias em resultados.',
+      pageTitle: 'Copy & Code — Sites, Sistemas, Marketing e Trabalho Profissional',
 
-      plansHeroLabel: 'COPY E CODE PLANS',
+      plansHeroLabel: 'COPY & CODE PLANS',
       plansHeroTitle: 'A professional website for every stage of your business.',
       plansHeroSubtitle: 'Choose between an essential solution, a complete digital presence, or a custom-built system. All plans are designed to deliver performance, security and ongoing support.',
       plansHeroCtaCompare: 'Compare plans',
@@ -880,7 +896,7 @@
       domainLabel: 'Domain',
       domainTitle: 'Domain included in all plans',
       domainText1: 'All plans include the registration and management of 1 standard domain while the contract is active or during the period stated in the proposal.',
-      domainText2: "The domain is registered in the client's name, CPF or CNPJ. Copy E Code handles the technical setup and management.",
+      domainText2: "The domain is registered in the client's name, CPF or CNPJ. Copy & Code handles the technical setup and management.",
       domainNote: 'Premium domains, names already registered by third parties, or extensions with elevated pricing will be charged separately.',
 
       hostingLabel: 'Hosting',
@@ -908,9 +924,9 @@
       plansFaqLabel: 'Questions',
       plansFaqTitle: 'Frequently asked questions',
       plansFaq1Q: "Is the domain really registered in the client's name?",
-      plansFaq1A: "Yes. The domain is registered in the client's name, CPF or CNPJ. Copy E Code handles the technical configuration during the plan's validity.",
+      plansFaq1A: "Yes. The domain is registered in the client's name, CPF or CNPJ. Copy & Code handles the technical configuration during the plan's validity.",
       plansFaq2Q: 'What happens after the first 12 months?',
-      plansFaq2A: 'After the first 12 months, the client can sign up for the Copy E Code Care Plan or transfer the website to another hosting provider. Conditions are defined in the commercial proposal.',
+      plansFaq2A: 'After the first 12 months, the client can sign up for the Copy & Code Care Plan or transfer the website to another hosting provider. Conditions are defined in the commercial proposal.',
       plansFaq3Q: 'Can I cancel the monthly plan?',
       plansFaq3A: 'Yes, as long as the minimum commitment stated in the contract is respected. Details are defined in the commercial proposal.',
       plansFaq4Q: 'Can I move the website to another hosting provider?',
@@ -938,8 +954,8 @@
       plansFinalCtaQuote: 'Request a quote',
       plansFinalCtaTrust: 'Direct service, transparent proposal and a project developed according to your business needs.',
 
-      plansMetaDescription: 'Explore Copy E Code\'s website plans. Professional websites with domain, hosting, maintenance and support for businesses of all sizes.',
-      plansOgTitle: 'Website Plans | Copy E Code',
+      plansMetaDescription: 'Explore Copy & Code\'s website plans. Professional websites with domain, hosting, maintenance and support for businesses of all sizes.',
+      plansOgTitle: 'Website Plans | Copy & Code',
       plansPageTitle: 'Plans | COPY CODE',
 
       plansPreviewLabel: 'PLANS',
@@ -999,6 +1015,12 @@
   };
 
   const STORAGE_KEY = 'copyecode-lang';
+  const LANGUAGE_META = {
+    'pt-BR': { flag: '🇧🇷', fallbackName: 'Português do Brasil' },
+    en: { flag: '🇺🇸', fallbackName: 'English' }
+  };
+
+  let languageSwitchersReady = false;
 
   function detectInitialLang() {
     try {
@@ -1036,6 +1058,12 @@
       }
     });
 
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(function (el) {
+      const key = el.getAttribute('data-i18n-aria-label');
+      const value = dict[key];
+      if (value !== undefined) el.setAttribute('aria-label', value);
+    });
+
     const titleEl = document.getElementById('pageTitle');
     if (titleEl) titleEl.textContent = dict.pageTitle;
 
@@ -1057,10 +1085,7 @@
     const twitterDesc = document.getElementById('twitterDescription');
     if (twitterDesc) twitterDesc.setAttribute('content', dict.ogDescription);
 
-    document.querySelectorAll('[data-lang]').forEach(function (btn) {
-      const isActive = btn.getAttribute('data-lang') === lang;
-      btn.setAttribute('aria-pressed', String(isActive));
-    });
+    syncLanguageSwitchers(lang);
 
     const menuBtn = document.getElementById('menuBtn');
     if (menuBtn) {
@@ -1073,6 +1098,157 @@
     document.documentElement.setAttribute('data-lang-ready', 'true');
   }
 
+  function getLanguageName(lang, uiLang) {
+    const dict = translations[uiLang] || translations.en;
+    if (lang === 'pt-BR') return dict.languagePortugueseFull || LANGUAGE_META['pt-BR'].fallbackName;
+    if (lang === 'en') return dict.languageEnglishFull || LANGUAGE_META.en.fallbackName;
+    return LANGUAGE_META[lang] ? LANGUAGE_META[lang].fallbackName : lang;
+  }
+
+  function syncLanguageSwitchers(lang) {
+    const dict = translations[lang] || translations.en;
+    const activeMeta = LANGUAGE_META[lang] || LANGUAGE_META.en;
+
+    document.querySelectorAll('[data-language-switcher]').forEach(function (switcher) {
+      const trigger = switcher.querySelector('[data-lang-trigger]');
+      const activeFlag = switcher.querySelector('[data-lang-active-flag]');
+      const activeName = switcher.querySelector('[data-lang-active-name]');
+
+      if (trigger) {
+        trigger.setAttribute('aria-label', dict.languageSelect || 'Select language');
+      }
+
+      if (activeFlag) activeFlag.textContent = activeMeta.flag;
+      if (activeName) activeName.textContent = getLanguageName(lang, lang);
+
+      switcher.querySelectorAll('[data-lang]').forEach(function (option) {
+        const optionLang = option.getAttribute('data-lang');
+        const isActive = optionLang === lang;
+        const meta = LANGUAGE_META[optionLang] || LANGUAGE_META.en;
+        const optionFlag = option.querySelector('.language-switcher__flag');
+
+        if (optionFlag) optionFlag.textContent = meta.flag;
+        option.setAttribute('aria-selected', String(isActive));
+        option.setAttribute('aria-pressed', String(isActive));
+        option.setAttribute('aria-label', getLanguageName(optionLang, lang));
+      });
+    });
+  }
+
+  function closeLanguageSwitcher(switcher, restoreFocus) {
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector('[data-lang-trigger]');
+    const menu = switcher.querySelector('[data-lang-menu]');
+
+    switcher.classList.remove('is-open');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    if (menu) menu.hidden = true;
+    if (restoreFocus && trigger) trigger.focus();
+  }
+
+  function closeAllLanguageSwitchers(exceptSwitcher) {
+    document.querySelectorAll('[data-language-switcher].is-open').forEach(function (switcher) {
+      if (switcher !== exceptSwitcher) closeLanguageSwitcher(switcher, false);
+    });
+  }
+
+  function openLanguageSwitcher(switcher, focusActive) {
+    const trigger = switcher.querySelector('[data-lang-trigger]');
+    const menu = switcher.querySelector('[data-lang-menu]');
+    if (!trigger || !menu) return;
+
+    closeAllLanguageSwitchers(switcher);
+    switcher.classList.add('is-open');
+    trigger.setAttribute('aria-expanded', 'true');
+    menu.hidden = false;
+
+    if (focusActive) {
+      const activeOption = switcher.querySelector('[data-lang][aria-selected="true"]');
+      const firstOption = switcher.querySelector('[data-lang]');
+      (activeOption || firstOption || trigger).focus();
+    }
+  }
+
+  function toggleLanguageSwitcher(switcher) {
+    if (switcher.classList.contains('is-open')) {
+      closeLanguageSwitcher(switcher, false);
+    } else {
+      openLanguageSwitcher(switcher, false);
+    }
+  }
+
+  function focusAdjacentLanguageOption(option, direction) {
+    const switcher = option.closest('[data-language-switcher]');
+    if (!switcher) return;
+
+    const options = Array.from(switcher.querySelectorAll('[data-lang]'));
+    const currentIndex = options.indexOf(option);
+    if (currentIndex === -1) return;
+
+    const nextIndex = (currentIndex + direction + options.length) % options.length;
+    options[nextIndex].focus();
+  }
+
+  function initLanguageSwitchers() {
+    if (languageSwitchersReady) return;
+
+    document.querySelectorAll('[data-language-switcher]').forEach(function (switcher) {
+      const trigger = switcher.querySelector('[data-lang-trigger]');
+
+      if (trigger) {
+        trigger.addEventListener('click', function () {
+          toggleLanguageSwitcher(switcher);
+        });
+
+        trigger.addEventListener('keydown', function (event) {
+          if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openLanguageSwitcher(switcher, true);
+          }
+        });
+      }
+
+      switcher.querySelectorAll('[data-lang]').forEach(function (option) {
+        option.addEventListener('click', function () {
+          const lang = option.getAttribute('data-lang');
+          setLang(lang);
+          closeLanguageSwitcher(switcher, true);
+        });
+
+        option.addEventListener('keydown', function (event) {
+          if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            focusAdjacentLanguageOption(option, 1);
+          } else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            focusAdjacentLanguageOption(option, -1);
+          } else if (event.key === 'Escape') {
+            event.preventDefault();
+            closeLanguageSwitcher(switcher, true);
+          }
+        });
+      });
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('[data-language-switcher]')) {
+        closeAllLanguageSwitchers();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape') return;
+      const openSwitcher = document.querySelector('[data-language-switcher].is-open');
+      if (openSwitcher) {
+        event.preventDefault();
+        closeLanguageSwitcher(openSwitcher, true);
+      }
+    });
+
+    languageSwitchersReady = true;
+  }
+
   function setLang(lang) {
     if (lang !== 'pt-BR' && lang !== 'en') lang = 'en';
 
@@ -1083,6 +1259,7 @@
     }
 
     applyTranslations(lang);
+    document.dispatchEvent(new CustomEvent('copyecode:languagechange', { detail: { lang: lang } }));
   }
 
   window.copyECodeI18n = {
@@ -1090,7 +1267,8 @@
     setLang: setLang,
     getLang: function () {
       try {
-        return window.localStorage.getItem(STORAGE_KEY) || detectInitialLang();
+        const stored = window.localStorage.getItem(STORAGE_KEY);
+        return (stored === 'pt-BR' || stored === 'en') ? stored : detectInitialLang();
       } catch (e) {
         return detectInitialLang();
       }
@@ -1098,4 +1276,5 @@
   };
 
   applyTranslations(detectInitialLang());
+  initLanguageSwitchers();
 })();

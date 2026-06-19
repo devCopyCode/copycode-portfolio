@@ -5,14 +5,14 @@
 
   var PLAN_WA_MSGS = {
     'pt-BR': {
-      essencial:    'Olá, conheci o plano Site Essencial pelo site da Copy E Code e gostaria de receber mais informações.',
-      profissional: 'Olá, conheci o plano Site Profissional pelo site da Copy E Code e gostaria de receber mais informações.',
-      avancado:     'Olá, conheci o plano Site Avançado pelo site da Copy E Code e gostaria de solicitar uma análise do meu projeto.'
+      essencial:    'Olá, conheci o plano Site Essencial pelo site da Copy & Code e gostaria de receber mais informações.',
+      profissional: 'Olá, conheci o plano Site Profissional pelo site da Copy & Code e gostaria de receber mais informações.',
+      avancado:     'Olá, conheci o plano Site Avançado pelo site da Copy & Code e gostaria de solicitar uma análise do meu projeto.'
     },
     'en': {
-      essencial:    'Hello, I found the Essential Website plan on the Copy E Code website and would like more information.',
-      profissional: 'Hello, I found the Professional Website plan on the Copy E Code website and would like more information.',
-      avancado:     'Hello, I found the Advanced Website plan on the Copy E Code website and would like to request a project analysis.'
+      essencial:    'Hello, I found the Essential Website plan on the Copy & Code website and would like more information.',
+      profissional: 'Hello, I found the Professional Website plan on the Copy & Code website and would like more information.',
+      avancado:     'Hello, I found the Advanced Website plan on the Copy & Code website and would like to request a project analysis.'
     }
   };
 
@@ -22,8 +22,8 @@
   };
 
   var QUIZ_RESULT_MSG = {
-    'pt-BR': 'Olá, fiz o quiz do site da Copy E Code e recebi a recomendação para o plano {plan}. Gostaria de saber mais.',
-    'en':    'Hello, I took the quiz on the Copy E Code website and was recommended the {plan} plan. I would like to know more.'
+    'pt-BR': 'Olá, fiz o quiz do site da Copy & Code e recebi a recomendação para o plano {plan}. Gostaria de saber mais.',
+    'en':    'Hello, I took the quiz on the Copy & Code website and was recommended the {plan} plan. I would like to know more.'
   };
 
   // Light background sections — header goes dark text when overlapping these
@@ -36,10 +36,30 @@
   function qs(sel, ctx) { return (ctx || document).querySelector(sel); }
   function qsa(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
 
+  var desktopMenuQuery = window.matchMedia('(min-width: 861px)');
+
+  function getFocusableElements(container) {
+    return qsa('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])', container)
+      .filter(function (el) { return !el.closest('[hidden]'); });
+  }
+
   function getLang() {
     return (window.copyECodeI18n && window.copyECodeI18n.getLang)
       ? window.copyECodeI18n.getLang()
-      : (localStorage.getItem('copyecode-lang') || 'pt-BR');
+      : (localStorage.getItem('copyecode-lang') === 'en' ? 'en' : 'pt-BR');
+  }
+
+  function getMenuLabel(isOpen) {
+    var isPt = getLang() === 'pt-BR';
+    if (isOpen) return isPt ? 'Fechar menu' : 'Close menu';
+    return isPt ? 'Abrir menu' : 'Open menu';
+  }
+
+  function syncMenuButtonLabel() {
+    var btn = qs('#menuBtn');
+    var nav = qs('#nav');
+    if (!btn) return;
+    btn.setAttribute('aria-label', getMenuLabel(Boolean(nav && nav.classList.contains('open'))));
   }
 
   function waUrl(plan) {
@@ -55,59 +75,150 @@
   function initMenu() {
     var btn = qs('#menuBtn');
     var nav = qs('#nav');
+    var overlay = qs('#navOverlay');
+    var lastMenuFocus = null;
     if (!btn || !nav) return;
 
-    function close() {
-      nav.classList.remove('is-open');
-      btn.setAttribute('aria-expanded', 'false');
-      btn.setAttribute('aria-label', 'Abrir menu');
-      document.body.style.overflow = '';
+    function setOverlay(open) {
+      if (!overlay) return;
+
+      if (open) {
+        overlay.hidden = false;
+        requestAnimationFrame(function () {
+          overlay.classList.add('is-visible');
+        });
+        return;
+      }
+
+      overlay.classList.remove('is-visible');
+      overlay.hidden = true;
+    }
+
+    function syncA11y(open) {
+      if (desktopMenuQuery.matches) {
+        nav.removeAttribute('aria-hidden');
+        nav.removeAttribute('tabindex');
+        return;
+      }
+
+      nav.setAttribute('aria-hidden', String(!open));
+
+      if (open) {
+        nav.setAttribute('tabindex', '-1');
+      } else {
+        nav.removeAttribute('tabindex');
+      }
+    }
+
+    function setState(open, restoreFocus) {
+      if (open) {
+        lastMenuFocus = document.activeElement === document.body ? btn : document.activeElement;
+      }
+
+      nav.classList.toggle('open', open);
+      btn.classList.toggle('active', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', getMenuLabel(open));
+      syncA11y(open);
+      setOverlay(open);
+      document.body.classList.toggle('is-locked', open);
+
+      if (open) {
+        var focusMenu = function () {
+          var firstMenuItem = getFocusableElements(nav)[0] || nav;
+          firstMenuItem.focus({ preventScroll: true });
+        };
+
+        requestAnimationFrame(function () {
+          focusMenu();
+          window.setTimeout(focusMenu, 60);
+          window.setTimeout(focusMenu, 320);
+        });
+      } else if (restoreFocus && lastMenuFocus && typeof lastMenuFocus.focus === 'function') {
+        lastMenuFocus.focus({ preventScroll: true });
+      }
+    }
+
+    function close(restoreFocus) {
+      setState(false, Boolean(restoreFocus));
     }
 
     function open() {
-      nav.classList.add('is-open');
-      btn.setAttribute('aria-expanded', 'true');
-      btn.setAttribute('aria-label', 'Fechar menu');
-      document.body.style.overflow = 'hidden';
+      setState(true, false);
+    }
+
+    function trapMenuFocus(e) {
+      if (!nav.classList.contains('open') || e.key !== 'Tab') return;
+
+      var focusable = getFocusableElements(nav);
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+
+      if (!first || !last) return;
+
+      if (!nav.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+        return;
+      }
+
+      if (e.shiftKey && (document.activeElement === first || document.activeElement === nav)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     }
 
     btn.addEventListener('click', function () {
-      nav.classList.contains('is-open') ? close() : open();
+      nav.classList.contains('open') ? close(true) : open();
     });
 
-    // Close on any nav link click
-    qsa('a', nav).forEach(function (a) { a.addEventListener('click', close); });
+    qsa('a', nav).forEach(function (a) {
+      a.addEventListener('click', function () { close(); });
+    });
+
+    if (overlay) {
+      overlay.addEventListener('click', function () { close(true); });
+    }
 
     document.addEventListener('click', function (e) {
-      if (nav.classList.contains('is-open') && !nav.contains(e.target) && e.target !== btn) close();
+      if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) close();
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') close();
+      if (e.key === 'Escape' && nav.classList.contains('open')) close(true);
+      trapMenuFocus(e);
     });
+
+    function resetMenuForViewport() {
+      if (desktopMenuQuery.matches) {
+        close();
+      } else {
+        syncA11y(nav.classList.contains('open'));
+      }
+    }
+
+    if (desktopMenuQuery.addEventListener) {
+      desktopMenuQuery.addEventListener('change', resetMenuForViewport);
+    } else if (desktopMenuQuery.addListener) {
+      desktopMenuQuery.addListener(resetMenuForViewport);
+    }
+
+    syncMenuButtonLabel();
+    syncA11y(false);
   }
 
   // ================================================================
   //  Language switcher
   // ================================================================
 
-  function initLangSwitcher() {
-    function syncBtns(lang) {
-      qsa('[data-lang]').forEach(function (btn) {
-        btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang));
-      });
-    }
-
-    syncBtns(getLang());
-
-    qsa('[data-lang]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var lang = btn.dataset.lang;
-        if (window.copyECodeI18n) window.copyECodeI18n.setLang(lang);
-        syncBtns(lang);
-        renderQuizResult(); // update plan name in quiz result if visible
-        updatePageMeta();
-      });
+  function initLanguageSync() {
+    document.addEventListener('copyecode:languagechange', function () {
+      renderQuizResult();
+      updatePageMeta();
+      syncMenuButtonLabel();
     });
   }
 
@@ -172,7 +283,10 @@
     var btn = qs('#backToTop');
     if (!btn) return;
     btn.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      });
     });
   }
 
@@ -200,7 +314,7 @@
         e.preventDefault();
         window.scrollTo({
           top: target.getBoundingClientRect().top + window.scrollY - headerH() - 16,
-          behavior: 'smooth'
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
         });
       });
     });
@@ -431,7 +545,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     initMenu();
-    initLangSwitcher();
+    initLanguageSync();
     initReveal();
     initHeader();
     initBackToTop();

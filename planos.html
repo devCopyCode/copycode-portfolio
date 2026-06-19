@@ -2,19 +2,19 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no">
-  <meta name="description" content="Conheça os planos de criação de sites da Copy E Code. Sites profissionais com domínio, hospedagem, manutenção e suporte para empresas de diferentes tamanhos." id="metaDescription">
-  <meta name="keywords" content="planos de sites, criação de site, site profissional, Copy E Code, planos mensais, site sob medida">
-  <meta name="author" content="Copy E Code">
-  <meta property="og:title" content="Planos de Criação de Sites | Copy E Code" id="ogTitle">
-  <meta property="og:description" content="Conheça os planos de criação de sites da Copy E Code. Sites profissionais com domínio, hospedagem, manutenção e suporte." id="ogDescription">
+  <meta name="description" content="Conheça os planos de criação de sites da Copy &amp; Code. Sites profissionais com domínio, hospedagem, manutenção e suporte para empresas de diferentes tamanhos." id="metaDescription">
+  <meta name="keywords" content="planos de sites, criação de site, site profissional, Copy &amp; Code, planos mensais, site sob medida">
+  <meta name="author" content="Copy &amp; Code">
+  <meta property="og:title" content="Planos de Criação de Sites | Copy &amp; Code" id="ogTitle">
+  <meta property="og:description" content="Conheça os planos de criação de sites da Copy &amp; Code. Sites profissionais com domínio, hospedagem, manutenção e suporte." id="ogDescription">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR" id="ogLocale">
   <meta property="og:image" content="assets/favicon.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Planos de Criação de Sites | Copy E Code" id="twitterTitle">
-  <meta name="twitter:description" content="Conheça os planos de criação de sites da Copy E Code. Sites profissionais com domínio, hospedagem, manutenção e suporte." id="twitterDescription">
+  <meta name="twitter:title" content="Planos de Criação de Sites | Copy &amp; Code" id="twitterTitle">
+  <meta name="twitter:description" content="Conheça os planos de criação de sites da Copy &amp; Code. Sites profissionais com domínio, hospedagem, manutenção e suporte." id="twitterDescription">
   <meta name="twitter:image" content="assets/favicon.png">
   <meta name="theme-color" content="#050505">
   <title id="pageTitle">Planos | COPY CODE</title>
@@ -23,7 +23,8 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/plans.css">
 
@@ -31,7 +32,7 @@
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "Copy E Code",
+    "name": "Copy & Code",
     "description": "Desenvolvimento de sites profissionais, landing pages, sistemas web e redesign de interfaces.",
     "url": "https://copyecode.com.br/",
     "image": "assets/favicon.png",
@@ -78,12 +79,12 @@
   <!-- ========== HEADER ========== -->
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="index.html" class="header__logo" aria-label="Copy E Code — Página inicial">
+      <a href="index.html" class="header__logo" aria-label="Copy &amp; Code — Página inicial" data-i18n-aria-label="logoHomeLabel">
         <span class="header__logo-mark" aria-hidden="true">&lt;/&gt;</span>
-        <span class="header__logo-text">Copy<span class="header__logo-dot">E</span>Code</span>
+        <span class="header__logo-text">Copy <span class="header__logo-dot">&amp;</span> Code</span>
       </a>
 
-      <nav class="header__nav" id="nav" aria-label="Menu principal">
+      <nav class="header__nav" id="nav" aria-label="Menu principal" data-i18n-aria-label="mainMenuLabel">
         <a href="index.html#inicio" class="header__link" data-i18n="navHome">Início</a>
         <a href="index.html#servicos" class="header__link" data-i18n="navServices">Serviços</a>
         <a href="index.html#portfolio" class="header__link" data-i18n="navProjects">Projetos</a>
@@ -92,14 +93,29 @@
         <a href="index.html#sobre" class="header__link" data-i18n="navAbout">Sobre</a>
         <a href="index.html#contato" class="header__link" data-i18n="navContact">Contato</a>
 
-        <div class="header__lang" role="group" aria-label="Idioma / Language">
-          <button type="button" class="header__lang-btn" id="langPt" data-lang="pt-BR" aria-pressed="true">PT-BR</button>
-          <span class="header__lang-sep" aria-hidden="true">/</span>
-          <button type="button" class="header__lang-btn" id="langEn" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-
         <a href="index.html#contato" class="btn btn--primary header__cta" data-i18n="navQuote">Solicitar orçamento</a>
       </nav>
+      <div class="header__overlay" id="navOverlay" aria-hidden="true" hidden></div>
+
+      <div class="header__lang language-switcher" data-language-switcher>
+        <button type="button" class="language-switcher__trigger" aria-label="Selecionar idioma" aria-haspopup="listbox" aria-expanded="false" data-lang-trigger>
+          <span class="language-switcher__flag" data-lang-active-flag aria-hidden="true">🇧🇷</span>
+          <span class="sr-only" data-lang-active-name>Português do Brasil</span>
+          <svg class="language-switcher__chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="language-switcher__menu" role="listbox" data-lang-menu hidden>
+          <button type="button" class="language-switcher__option" role="option" data-lang="pt-BR" aria-selected="true">
+            <span class="language-switcher__flag" aria-hidden="true">🇧🇷</span>
+            <span class="language-switcher__name" data-i18n="languagePortuguese">Português</span>
+          </button>
+          <button type="button" class="language-switcher__option" role="option" data-lang="en" aria-selected="false">
+            <span class="language-switcher__flag" aria-hidden="true">🇺🇸</span>
+            <span class="language-switcher__name" data-i18n="languageEnglish">English</span>
+          </button>
+        </div>
+      </div>
 
       <button class="header__menu-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-controls="nav" aria-expanded="false">
         <span></span>
@@ -117,7 +133,7 @@
       <div class="container plans-hero__inner">
 
         <div class="plans-hero__main">
-          <p class="plans-hero__label reveal" data-i18n="plansHeroLabel">PLANOS COPY E CODE</p>
+          <p class="plans-hero__label reveal" data-i18n="plansHeroLabel">PLANOS COPY &amp; CODE</p>
 
           <h1 class="plans-hero__title reveal" id="plans-hero-title" data-i18n="plansHeroTitle">
             Um site profissional para cada etapa do seu negócio.
@@ -1055,7 +1071,7 @@
         <div class="domain__inner reveal">
           <div class="domain__content">
             <p class="domain__text" data-i18n="domainText1">Os planos incluem o registro e a administração de 1 domínio padrão enquanto o contrato estiver ativo ou durante o período informado na proposta.</p>
-            <p class="domain__text" data-i18n="domainText2">O domínio é registrado no nome, CPF ou CNPJ do cliente. A Copy E Code cuida da configuração e administração técnica.</p>
+            <p class="domain__text" data-i18n="domainText2">O domínio é registrado no nome, CPF ou CNPJ do cliente. A Copy &amp; Code cuida da configuração e administração técnica.</p>
             <div class="domain__note" role="note">
               <svg class="domain__note-icon" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M7 6v4M7 4.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
               <span data-i18n="domainNote">Domínios premium, nomes já registrados por terceiros ou extensões com valor elevado serão cobrados separadamente.</span>
@@ -1178,12 +1194,12 @@
 
           <details class="faq-item">
             <summary class="faq-item__question" data-i18n="plansFaq1Q">O domínio realmente fica no nome do cliente?</summary>
-            <div class="faq-item__answer" data-i18n="plansFaq1A">Sim. O domínio é registrado no nome, CPF ou CNPJ do cliente. A Copy E Code cuida da configuração técnica durante a vigência do plano.</div>
+            <div class="faq-item__answer" data-i18n="plansFaq1A">Sim. O domínio é registrado no nome, CPF ou CNPJ do cliente. A Copy &amp; Code cuida da configuração técnica durante a vigência do plano.</div>
           </details>
 
           <details class="faq-item">
             <summary class="faq-item__question" data-i18n="plansFaq2Q">O que acontece depois dos primeiros 12 meses?</summary>
-            <div class="faq-item__answer" data-i18n="plansFaq2A">Após os primeiros 12 meses, o cliente pode contratar o Plano de Cuidados da Copy E Code ou transferir o site para outra hospedagem. As condições são definidas na proposta comercial.</div>
+            <div class="faq-item__answer" data-i18n="plansFaq2A">Após os primeiros 12 meses, o cliente pode contratar o Plano de Cuidados da Copy &amp; Code ou transferir o site para outra hospedagem. As condições são definidas na proposta comercial.</div>
           </details>
 
           <details class="faq-item">
@@ -1276,15 +1292,29 @@
     <div class="container">
       <div class="footer__top">
         <div class="footer__brand">
-          <a href="index.html" class="footer__logo" aria-label="Copy E Code — Página inicial">
+          <a href="index.html" class="footer__logo" aria-label="Copy &amp; Code — Página inicial" data-i18n-aria-label="logoHomeLabel">
             <span class="header__logo-mark" aria-hidden="true">&lt;/&gt;</span>
-            <span class="header__logo-text">Copy<span class="header__logo-dot">E</span>Code</span>
+            <span class="header__logo-text">Copy <span class="header__logo-dot">&amp;</span> Code</span>
           </a>
           <p class="footer__desc" data-i18n="footerDesc">Empresa de tecnologia especializada em sites profissionais, landing pages, sistemas web e redesign de interfaces.</p>
-          <div class="header__lang header__lang--footer" role="group" aria-label="Idioma / Language">
-            <button type="button" class="header__lang-btn" id="langPtFooter" data-lang="pt-BR" aria-pressed="true">PT-BR</button>
-            <span class="header__lang-sep" aria-hidden="true">/</span>
-            <button type="button" class="header__lang-btn" id="langEnFooter" data-lang="en" aria-pressed="false">EN</button>
+          <div class="header__lang header__lang--footer language-switcher" data-language-switcher>
+            <button type="button" class="language-switcher__trigger" aria-label="Selecionar idioma" aria-haspopup="listbox" aria-expanded="false" data-lang-trigger>
+              <span class="language-switcher__flag" data-lang-active-flag aria-hidden="true">🇧🇷</span>
+              <span class="sr-only" data-lang-active-name>Português do Brasil</span>
+              <svg class="language-switcher__chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="language-switcher__menu" role="listbox" data-lang-menu hidden>
+              <button type="button" class="language-switcher__option" role="option" data-lang="pt-BR" aria-selected="true">
+                <span class="language-switcher__flag" aria-hidden="true">🇧🇷</span>
+                <span class="language-switcher__name" data-i18n="languagePortuguese">Português</span>
+              </button>
+              <button type="button" class="language-switcher__option" role="option" data-lang="en" aria-selected="false">
+                <span class="language-switcher__flag" aria-hidden="true">🇺🇸</span>
+                <span class="language-switcher__name" data-i18n="languageEnglish">English</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -1327,10 +1357,10 @@
       </div>
 
       <div class="footer__bottom">
-        <p><span data-i18n="footerRights">&copy; <span id="footerYear">2026</span> Copy E Code. Todos os direitos reservados.</span></p>
+        <p><span data-i18n="footerRights">&copy; <span id="footerYear">2026</span> Copy &amp; Code. Todos os direitos reservados.</span></p>
       </div>
 
-      <div class="footer__signature" aria-hidden="true">COPY E CODE</div>
+      <div class="footer__signature" aria-hidden="true">COPY &amp; CODE</div>
     </div>
   </footer>
 
