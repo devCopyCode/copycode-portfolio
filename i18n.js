@@ -1,5 +1,5 @@
 /**
- * COPY CODE - Sistema de internacionalizacao (PT-BR / EN)
+ * COPY & CODE - Sistema de internacionalizacao (PT-BR / EN)
  * Objeto central de traducoes + aplicacao no DOM, meta tags e atributo lang.
  */
 
@@ -216,10 +216,10 @@
       waBudget: '*Faixa de orçamento:*',
       waMessage: '*Mensagem:*',
 
-      metaDescription: 'Criamos sites, sistemas e estratégias de marketing sob medida para empresas que querem crescer, fortalecer sua presença digital e transformar ideias em resultados.',
-      ogTitle: 'Copy & Code — Sites, Sistemas, Marketing e Trabalho Profissional',
-      ogDescription: 'Criamos sites, sistemas e estratégias de marketing sob medida para empresas que querem crescer, fortalecer sua presença digital e transformar ideias em resultados.',
-      pageTitle: 'Copy & Code — Sites, Sistemas, Marketing e Trabalho Profissional',
+      metaDescription: 'Criamos sites profissionais, sistemas sob medida e estratégias digitais para fortalecer sua empresa, atrair clientes e transformar ideias em resultados.',
+      ogTitle: 'Copy & Code — Sites, Sistemas e Marketing Digital',
+      ogDescription: 'Criamos sites profissionais, sistemas sob medida e estratégias digitais para fortalecer sua empresa, atrair clientes e transformar ideias em resultados.',
+      pageTitle: 'Copy & Code',
 
       plansHeroLabel: 'PLANOS COPY & CODE',
       plansHeroTitle: 'Um site profissional para cada etapa do seu negócio.',
@@ -451,9 +451,9 @@
       plansFinalCtaQuote: 'Solicitar orçamento',
       plansFinalCtaTrust: 'Atendimento direto, proposta transparente e projeto desenvolvido de acordo com as necessidades do seu negócio.',
 
-      plansMetaDescription: 'Conheça os planos de criação de sites da Copy & Code. Sites profissionais com domínio, hospedagem, manutenção e suporte para empresas de diferentes tamanhos.',
-      plansOgTitle: 'Planos de Criação de Sites | Copy & Code',
-      plansPageTitle: 'Planos | COPY CODE',
+      plansMetaDescription: 'Criamos sites profissionais, sistemas sob medida e estratégias digitais para fortalecer sua empresa, atrair clientes e transformar ideias em resultados.',
+      plansOgTitle: 'Copy & Code — Sites, Sistemas e Marketing Digital',
+      plansPageTitle: 'Copy & Code',
 
       plansPreviewLabel: 'PLANOS',
       plansPreviewSubtitle: 'Escolha a solução mais adequada para sua empresa. Todos os planos são desenvolvidos com foco em desempenho, segurança, credibilidade e suporte contínuo.',
@@ -719,10 +719,10 @@
       waBudget: '*Budget range:*',
       waMessage: '*Message:*',
 
-      metaDescription: 'Criamos sites, sistemas e estratégias de marketing sob medida para empresas que querem crescer, fortalecer sua presença digital e transformar ideias em resultados.',
-      ogTitle: 'Copy & Code — Sites, Sistemas, Marketing e Trabalho Profissional',
-      ogDescription: 'Criamos sites, sistemas e estratégias de marketing sob medida para empresas que querem crescer, fortalecer sua presença digital e transformar ideias em resultados.',
-      pageTitle: 'Copy & Code — Sites, Sistemas, Marketing e Trabalho Profissional',
+      metaDescription: 'Criamos sites profissionais, sistemas sob medida e estratégias digitais para fortalecer sua empresa, atrair clientes e transformar ideias em resultados.',
+      ogTitle: 'Copy & Code — Sites, Sistemas e Marketing Digital',
+      ogDescription: 'Criamos sites profissionais, sistemas sob medida e estratégias digitais para fortalecer sua empresa, atrair clientes e transformar ideias em resultados.',
+      pageTitle: 'Copy & Code',
 
       plansHeroLabel: 'COPY & CODE PLANS',
       plansHeroTitle: 'A professional website for every stage of your business.',
@@ -954,9 +954,9 @@
       plansFinalCtaQuote: 'Request a quote',
       plansFinalCtaTrust: 'Direct service, transparent proposal and a project developed according to your business needs.',
 
-      plansMetaDescription: 'Explore Copy & Code\'s website plans. Professional websites with domain, hosting, maintenance and support for businesses of all sizes.',
-      plansOgTitle: 'Website Plans | Copy & Code',
-      plansPageTitle: 'Plans | COPY CODE',
+      plansMetaDescription: 'Criamos sites profissionais, sistemas sob medida e estratégias digitais para fortalecer sua empresa, atrair clientes e transformar ideias em resultados.',
+      plansOgTitle: 'Copy & Code — Sites, Sistemas e Marketing Digital',
+      plansPageTitle: 'Copy & Code',
 
       plansPreviewLabel: 'PLANS',
       plansPreviewSubtitle: 'Choose the right solution for your company. Every plan is built with performance, security, credibility and continuous support in mind.',
@@ -1064,26 +1064,7 @@
       if (value !== undefined) el.setAttribute('aria-label', value);
     });
 
-    const titleEl = document.getElementById('pageTitle');
-    if (titleEl) titleEl.textContent = dict.pageTitle;
-
-    const metaDesc = document.getElementById('metaDescription');
-    if (metaDesc) metaDesc.setAttribute('content', dict.metaDescription);
-
-    const ogTitle = document.getElementById('ogTitle');
-    if (ogTitle) ogTitle.setAttribute('content', dict.ogTitle);
-
-    const ogDesc = document.getElementById('ogDescription');
-    if (ogDesc) ogDesc.setAttribute('content', dict.ogDescription);
-
-    const ogLocale = document.getElementById('ogLocale');
-    if (ogLocale) ogLocale.setAttribute('content', lang === 'pt-BR' ? 'pt_BR' : 'en_US');
-
-    const twitterTitle = document.getElementById('twitterTitle');
-    if (twitterTitle) twitterTitle.setAttribute('content', dict.ogTitle);
-
-    const twitterDesc = document.getElementById('twitterDescription');
-    if (twitterDesc) twitterDesc.setAttribute('content', dict.ogDescription);
+    // Keep browser title and sharing metadata static in the initial HTML.
 
     syncLanguageSwitchers(lang);
 

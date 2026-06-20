@@ -217,7 +217,6 @@
   function initLanguageSync() {
     document.addEventListener('copyecode:languagechange', function () {
       renderQuizResult();
-      updatePageMeta();
       syncMenuButtonLabel();
     });
   }
@@ -515,31 +514,6 @@
   }
 
   // ================================================================
-  //  Page meta (title + description) — overrides i18n defaults
-  // ================================================================
-
-  function updatePageMeta() {
-    if (!window.copyECodeI18n || !window.copyECodeI18n.translations) return;
-    var lang        = getLang();
-    var t           = window.copyECodeI18n.translations[lang] || {};
-    var titleEl     = qs('#pageTitle');
-    var descEl      = qs('#metaDescription');
-    var ogTitleEl   = qs('#ogTitle');
-    var ogDescEl    = qs('#ogDescription');
-    var twTitleEl   = qs('#twitterTitle');
-    var twDescEl    = qs('#twitterDescription');
-    var ogLocaleEl  = qs('#ogLocale');
-
-    if (t.plansPageTitle && titleEl)           document.title = t.plansPageTitle;
-    if (t.plansMetaDescription && descEl)      descEl.setAttribute('content', t.plansMetaDescription);
-    if (t.plansOgTitle && ogTitleEl)           ogTitleEl.setAttribute('content', t.plansOgTitle);
-    if (t.plansMetaDescription && ogDescEl)    ogDescEl.setAttribute('content', t.plansMetaDescription);
-    if (t.plansOgTitle && twTitleEl)           twTitleEl.setAttribute('content', t.plansOgTitle);
-    if (t.plansMetaDescription && twDescEl)    twDescEl.setAttribute('content', t.plansMetaDescription);
-    if (ogLocaleEl) ogLocaleEl.setAttribute('content', lang === 'en' ? 'en_US' : 'pt_BR');
-  }
-
-  // ================================================================
   //  Boot
   // ================================================================
 
@@ -554,7 +528,6 @@
     initPriceToggle();
     initQuiz();
     initPlanCtaButtons();
-    updatePageMeta();
   });
 
 })();
