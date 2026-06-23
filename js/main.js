@@ -51,7 +51,7 @@
         en: 'Digital storefront with catalog, filters and direct sales contact.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: 'https://sereno-loja-devCopyCode.vercel.app',
+      demoUrl: 'https://sereno-loja.vercel.app',
       imageUrl: 'assets/projeto-loja.webp'
     },
     advogado: {
