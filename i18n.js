@@ -110,6 +110,10 @@
       project6Title: 'Site para Agência de Marketing',
       project6Text: 'Presença digital impactante com cases, serviços e captura de leads.',
 
+      project7Category: 'Academia',
+      project7Title: 'Site para Academia de Luta',
+      project7Text: 'Site para academia de Muay Thai e Boxe com horários de aula, instrutores e agendamento de aula experimental.',
+
       processLabel: 'Como trabalhamos',
       processTitle: 'Processo de trabalho',
       processSubtitle: 'Um fluxo claro e transparente, do briefing à entrega do seu projeto.',
@@ -612,6 +616,10 @@
       project6Category: 'Marketing',
       project6Title: 'Marketing Agency Website',
       project6Text: 'Impactful digital presence with case studies, services and lead capture.',
+
+      project7Category: 'Gym',
+      project7Title: 'Combat Sports Gym Website',
+      project7Text: 'Website for a Muay Thai and Boxing academy with class schedule, instructors and free trial booking.',
 
       processLabel: 'How we work',
       processTitle: 'Work Process',

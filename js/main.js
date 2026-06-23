@@ -75,6 +75,17 @@
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoUrl: '',
       imageUrl: ''
+    },
+    fightclub: {
+      category: { pt: 'Academia', en: 'Gym' },
+      title: { pt: 'Site para Academia de Luta', en: 'Combat Sports Gym Website' },
+      description: {
+        pt: 'Site para academia de Muay Thai e Boxe com horários de aula, instrutores, galeria e agendamento de aula experimental via WhatsApp.',
+        en: 'Website for a Muay Thai and Boxing academy with class schedule, instructors, gallery and free trial booking via WhatsApp.'
+      },
+      technologies: ['HTML', 'CSS', 'JavaScript'],
+      demoUrl: 'https://elite-fight-club.vercel.app',
+      imageUrl: ''
     }
   };
 
