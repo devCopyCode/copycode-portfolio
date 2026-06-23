@@ -50,8 +50,8 @@
         pt: 'Vitrine digital com catálogo, filtros e contato direto para vendas.',
         en: 'Digital storefront with catalog, filters and direct sales contact.'
       },
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '',
+      academia de artes marciais: ['HTML', 'CSS', 'JavaScript'],
+      demoUrl: 'https://elite-fight-club.vercel.app',
       imageUrl: ''
     },
     advogado: {
