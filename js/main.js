@@ -21,7 +21,7 @@
       demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
       imageUrl: 'assets/projeto-pizzaria.webp'
     },
-    loja de roupa: {
+    barbearia: {
       category: { pt: 'Beleza', en: 'Beauty' },
       title: { pt: 'Landing page para Barbearia', en: 'Barbershop Landing Page' },
       description: {
@@ -29,8 +29,8 @@
         en: 'Conversion page with booking, services and WhatsApp button.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: 'https://sereno-loja-9ty9ho8s1-copycode.vercel.app',
-      imageUrl: ''
+      demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
+      imageUrl: 'assets/projeto-barbearia.webp'
     },
     designer: {
       category: { pt: 'Criativo', en: 'Creative' },
@@ -50,9 +50,9 @@
         pt: 'Vitrine digital com catálogo, filtros e contato direto para vendas.',
         en: 'Digital storefront with catalog, filters and direct sales contact.'
       },
-      academia de artes marciais: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: 'https://elite-fight-club.vercel.app',
-      imageUrl: ''
+      technologies: ['HTML', 'CSS', 'JavaScript'],
+      demoUrl: 'https://sereno-loja-devCopyCode.vercel.app',
+      imageUrl: 'assets/projeto-loja.webp'
     },
     advogado: {
       category: { pt: 'Jurídico', en: 'Legal' },
