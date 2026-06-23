@@ -21,7 +21,7 @@
       demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
       imageUrl: 'assets/projeto-pizzaria.webp'
     },
-    barbearia: {
+    loja de roupa: {
       category: { pt: 'Beleza', en: 'Beauty' },
       title: { pt: 'Landing page para Barbearia', en: 'Barbershop Landing Page' },
       description: {
@@ -29,7 +29,7 @@
         en: 'Conversion page with booking, services and WhatsApp button.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
+      demoUrl: 'https://sereno-loja-9ty9ho8s1-copycode.vercel.app',
       imageUrl: ''
     },
     designer: {
