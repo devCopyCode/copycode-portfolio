@@ -30,7 +30,7 @@
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
-      imageUrl: 'assets/projeto-barbearia.webp'
+      imageUrl: ''
     },
     designer: {
       category: { pt: 'Criativo', en: 'Creative' },
@@ -41,7 +41,7 @@
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoUrl: 'https://motion-designer-template.netlify.app',
-      imageUrl: 'https://media.discordapp.net/attachments/1014291515138388010/1517006466316374076/image.png?ex=6a34b5de&is=6a33645e&hm=39c09f63d340d881cb159920ced7d875f8ed84885cd7b6efad593b9179d6de93&=&format=webp&quality=lossless&width=1148&height=562'
+      imageUrl: 'assets/projeto-designer.jpg'
     },
     loja: {
       category: { pt: 'E-commerce', en: 'E-commerce' },
@@ -52,7 +52,7 @@
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoUrl: 'https://sereno-loja.vercel.app',
-      imageUrl: 'assets/projeto-loja.webp'
+      imageUrl: 'assets/projeto-loja.jpg'
     },
     advogado: {
       category: { pt: 'Jurídico', en: 'Legal' },
@@ -85,7 +85,7 @@
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoUrl: 'https://elite-fight-club.vercel.app',
-      imageUrl: ''
+      imageUrl: 'assets/projeto-fightclub.jpg'
     }
   };
 
