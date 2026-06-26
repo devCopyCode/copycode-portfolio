@@ -1193,6 +1193,7 @@ button {
 .portfolio-card__preview--5 { --card-tint: rgba(12, 6, 4, 0.6); }
 .portfolio-card__preview--6 { --card-tint: rgba(4, 14, 14, 0.6); }
 .portfolio-card__preview--7 { --card-tint: rgba(20, 4, 4, 0.6); }
+.portfolio-card__preview--8 { --card-tint: rgba(4, 18, 8, 0.6); }
 
 .portfolio-card__preview[class*="--"] {
   background:

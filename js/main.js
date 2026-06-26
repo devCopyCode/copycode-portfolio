@@ -86,6 +86,17 @@
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoUrl: 'https://elite-fight-club.vercel.app',
       imageUrl: 'assets/projeto-fightclub.jpg'
+    },
+    espacoanimal: {
+      category: { pt: 'Saúde Pet', en: 'Pet Health' },
+      title: { pt: 'Site para Plano de Saúde Pet', en: 'Pet Health Plan Website' },
+      description: {
+        pt: 'Landing page para clínica veterinária com planos de saúde pet, tabela de coberturas interativa, depoimentos e agendamento via WhatsApp.',
+        en: 'Landing page for a veterinary clinic with pet health plans, interactive coverage table, testimonials and WhatsApp booking.'
+      },
+      technologies: ['HTML', 'CSS', 'JavaScript'],
+      demoUrl: 'https://espaco-animal-copycode.vercel.app',
+      imageUrl: 'assets/projeto-espacoanimal.jpg'
     }
   };
 

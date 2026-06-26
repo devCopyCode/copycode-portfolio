@@ -114,6 +114,10 @@
       project7Title: 'Site para Academia de Luta',
       project7Text: 'Site para academia de Muay Thai e Boxe com horários de aula, instrutores e agendamento de aula experimental.',
 
+      project8Category: 'Saúde Pet',
+      project8Title: 'Site para Plano de Saúde Pet',
+      project8Text: 'Landing page para plano de saúde pet com tabela de coberturas, planos, depoimentos e agendamento via WhatsApp.',
+
       processLabel: 'Como trabalhamos',
       processTitle: 'Processo de trabalho',
       processSubtitle: 'Um fluxo claro e transparente, do briefing à entrega do seu projeto.',
@@ -620,6 +624,10 @@
       project7Category: 'Gym',
       project7Title: 'Combat Sports Gym Website',
       project7Text: 'Website for a Muay Thai and Boxing academy with class schedule, instructors and free trial booking.',
+
+      project8Category: 'Pet Health',
+      project8Title: 'Pet Health Plan Website',
+      project8Text: 'Landing page for a pet health plan with coverage table, plans, testimonials and booking via WhatsApp.',
 
       processLabel: 'How we work',
       processTitle: 'Work Process',
