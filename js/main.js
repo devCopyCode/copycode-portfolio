@@ -21,17 +21,6 @@
       demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
       imageUrl: 'assets/projeto-pizzaria.webp'
     },
-    barbearia: {
-      category: { pt: 'Beleza', en: 'Beauty' },
-      title: { pt: 'Landing page para Barbearia', en: 'Barbershop Landing Page' },
-      description: {
-        pt: 'Página de conversão com agendamento, serviços e botão de WhatsApp.',
-        en: 'Conversion page with booking, services and WhatsApp button.'
-      },
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: 'https://astonishing-jalebi-d4e88a.netlify.app',
-      imageUrl: ''
-    },
     designer: {
       category: { pt: 'Criativo', en: 'Creative' },
       title: { pt: 'Portfólio para Designer', en: 'Designer Portfolio' },
@@ -64,17 +53,6 @@
       technologies: ['HTML', 'CSS', 'JavaScript'],
       demoUrl: 'https://advogado-template.netlify.app',
       imageUrl: 'assets/projeto-advogado.webp'
-    },
-    marketing: {
-      category: { pt: 'Marketing', en: 'Marketing' },
-      title: { pt: 'Site para Agência de Marketing', en: 'Marketing Agency Website' },
-      description: {
-        pt: 'Presença digital impactante com cases, serviços e captura de leads.',
-        en: 'Impactful digital presence with case studies, services and lead capture.'
-      },
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: '',
-      imageUrl: ''
     },
     fightclub: {
       category: { pt: 'Academia', en: 'Gym' },
