@@ -29,7 +29,7 @@
         en: 'Minimalist showcase to present work and attract new clients.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: 'https://motion-designer-template.netlify.app',
+      demoUrl: 'https://portfolio-designer-rouge.vercel.app',
       imageUrl: 'assets/projeto-designer.jpg'
     },
     loja: {
