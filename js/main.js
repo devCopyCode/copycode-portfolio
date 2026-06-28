@@ -73,7 +73,7 @@
         en: 'Landing page for a veterinary clinic with pet health plans, interactive coverage table, testimonials and WhatsApp booking.'
       },
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      demoUrl: 'refined-henna.vercel.app',
+      demoUrl: 'https://refined-henna.vercel.app',
       imageUrl: 'assets/projeto-espacoanimal.jpg'
     }
   };
